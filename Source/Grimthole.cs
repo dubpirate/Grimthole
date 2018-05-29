@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-using Grimthole.MacOS.Source.Utils;
-
-namespace Grimthole.MacOS.Source
+using Grimthole.Utils;
+namespace Grimthole
 {
     /// <summary>
     /// This is the main type for Grimthole.
@@ -15,34 +16,35 @@ namespace Grimthole.MacOS.Source
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Player player;
 
-		public Grimthole()
+        public Grimthole()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
 
-		protected override void BeginRun()
-		{
-			// TODO: Code for splashscreen with M1 Logo.
-			base.BeginRun();
-		}
-
-		protected override void Initialize()
+        protected override void BeginRun()
         {
-			graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-			graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-			graphics.ApplyChanges();
+            // TODO: Code for splashscreen with M1 Logo.
+            base.BeginRun();
+        }
 
+        protected override void Initialize()
+        {
+            graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            graphics.ApplyChanges();
+            player = new Player(200, 200);
             base.Initialize();
         }
-        
+
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-			ScreenManager.Instance.LoadContent(Content);
+            player.LoadContent(Content);
+            ScreenManager.Instance.LoadContent(Content);
         }
 
         protected override void Update(GameTime gameTime)
@@ -50,16 +52,16 @@ namespace Grimthole.MacOS.Source
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-
-			ScreenManager.Instance.Update(gameTime);
+            player.Update(graphics, gameTime, Content);
+            ScreenManager.Instance.Update(gameTime);
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             graphics.GraphicsDevice.Clear(Color.Black);
-            
-			ScreenManager.Instance.Draw(spriteBatch);
+            player.Draw(spriteBatch);
+            //ScreenManager.Instance.Draw(spriteBatch);
             base.Draw(gameTime);
         }
     }
