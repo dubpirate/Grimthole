@@ -16,11 +16,13 @@ namespace Grimthole.Utils
         protected Rectangle rectangle;
         protected int width;
         protected int height;
-        protected SpriteManager(String name, Vector2 coords)
+        protected SpriteManager(String name, Vector2 coords, int width, int height)
         {
             // Initialise base sprite details. 
             this.name = name;
-            rectangle = new Rectangle((int)coords.X, (int)coords.Y, width, height);
+            this.width = width;
+            this.height = height;
+            rectangle = new Rectangle((int)coords.X, (int)coords.Y, this.width, this.height);
         }
 
         public void LoadContent(ContentManager content)
@@ -36,7 +38,9 @@ namespace Grimthole.Utils
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Begin();
             spriteBatch.Draw(sprite, rectangle, Color.White);
+            spriteBatch.End();
         }
 
         public String Name { get; protected set; }
