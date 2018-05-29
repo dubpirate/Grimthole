@@ -16,6 +16,7 @@ namespace Grimthole.Utils
         protected Rectangle rectangle;
         protected int width;
         protected int height;
+        protected int tileSize = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 16;
         protected SpriteManager(String name, Vector2 coords, int width, int height)
         {
             // Initialise base sprite details. 
