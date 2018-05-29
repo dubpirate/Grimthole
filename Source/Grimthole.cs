@@ -51,6 +51,7 @@ namespace Grimthole
                 Exit();
 
             player.Update(graphics, gameTime, Content);
+            player.LoadContent(Content);
             ScreenManager.Instance.Update(gameTime);
             base.Update(gameTime);
         }
@@ -58,8 +59,9 @@ namespace Grimthole
         protected override void Draw(GameTime gameTime)
         {
             graphics.GraphicsDevice.Clear(Color.Black);
-            player.Draw(spriteBatch);
             ScreenManager.Instance.Draw(spriteBatch);
+            player.Draw(spriteBatch);
+            
             base.Draw(gameTime);
         }
     }
