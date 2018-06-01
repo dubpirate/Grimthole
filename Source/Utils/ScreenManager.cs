@@ -8,12 +8,16 @@ using Grimthole.MacOS.Source.Screens;
 
 namespace Grimthole.MacOS.Source.Utils
 {
-    public class ScreenManager
+	/// <summary>
+    /// This Screen Manager switches between the relevant screens in the game.
+    /// </summary>
+	public class ScreenManager
     {
 		static ScreenManager instance;
-		public Vector2 dimensions { get; private set; }
-		public ContentManager Content { get; private set; }
 
+		public readonly int TileSize = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 16;
+		public Rectangle Dimensions { get; private set; }
+		public ContentManager Content { get; private set; }
 		GameScreen currentScreen;
 
 		public static ScreenManager Instance 
@@ -31,25 +35,31 @@ namespace Grimthole.MacOS.Source.Utils
         ScreenManager()
         {
 			// Set to Full Screen
-			dimensions = new Vector2(
-				GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width,
-				GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height
+			Dimensions = new Rectangle(
+				0,
+                0,
+				GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width - 100,
+				GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - 100
 			);
-
-			currentScreen = new SpashScreen();
         }
 
-		public void Initialise(GraphicsAdapter graphicsAdapter)
+		public void Initialise()
 		{
-			
+			currentScreen = new SplashScreen();
 		}
 
+        public void ChangeScreen(GameScreen gameScreen)
+        {
+            currentScreen = gameScreen;
+			currentScreen.LoadContent();
+        }
+        
 		public void LoadContent(ContentManager content)
 		{
 			Content = new ContentManager(content.ServiceProvider, "Content");
 			currentScreen.LoadContent();
 		}
-
+        
 		public void Update(GameTime gameTime)
 		{
 			currentScreen.Update(gameTime);

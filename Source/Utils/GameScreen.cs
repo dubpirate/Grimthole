@@ -1,10 +1,13 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Grimthole.MacOS.Source.Utils
 {
-    public class GameScreen
+	public abstract class GameScreen
     {
 		protected ContentManager Content;
 
@@ -17,14 +20,13 @@ namespace Grimthole.MacOS.Source.Utils
 			);
 		}
 
-		public virtual void Update(GameTime gameTime)
+		public virtual void UnloadContent()
 		{
-			
+			Content.Dispose();
 		}
 
-		public virtual void Draw(SpriteBatch spriteBatch)
-		{
-			
-		}
+		public abstract void Update(GameTime gameTime);
+
+		public abstract void Draw(SpriteBatch spriteBatch);
     }
 }
