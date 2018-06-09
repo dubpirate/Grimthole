@@ -1,13 +1,12 @@
-
-using System;
+﻿using System;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-using Grimthole.MacOS.Source.Utils;
+using Grimthole.Utils;
 
-namespace Grimthole.MacOS.Source
+namespace Grimthole
 {
     /// <summary>
     /// This is the main type for Grimthole.
@@ -16,8 +15,9 @@ namespace Grimthole.MacOS.Source
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        public static Player player;
 
-		public Grimthole()
+        public Grimthole()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -27,14 +27,14 @@ namespace Grimthole.MacOS.Source
         {
             graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - 100;
             graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width - 100;
-		    graphics.ApplyChanges();
+            graphics.ApplyChanges();
 
-			ScreenManager.Instance.Initialise();
-
+            ScreenManager.Instance.Initialise();
+            player = new Player(new Vector2(300,300));
             base.Initialize();
         }
-    
-        
+
+
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
@@ -48,7 +48,7 @@ namespace Grimthole.MacOS.Source
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-			ScreenManager.Instance.Update(gameTime);
+            ScreenManager.Instance.Update(gameTime);
 
             base.Update(gameTime);
         }
