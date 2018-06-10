@@ -12,7 +12,7 @@ namespace Grimthole
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        private static void Programs()
+        private static void Main()
         {
             using (var game = new Grimthole())
                 game.Run();

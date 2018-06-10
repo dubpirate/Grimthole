@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Grimthole.Core;
+using Grimthole.NPCs;
 using Grimthole.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,6 +16,8 @@ namespace Grimthole.Screens
         Point tileHeightAndWidth;
         List<Point> points = new List<Point>();
         Player player;
+        int EncounterRate = 1;
+        Npc bob = new Bob(100, 100);
 
         public override void LoadContent()
         {
@@ -76,7 +80,7 @@ namespace Grimthole.Screens
 
         public override void Update(GameTime gameTime)
         {
-            player.Update(ScreenManager.Instance.Dimensions, gameTime, Content);
+            player.Update(ScreenManager.Instance.Dimensions, gameTime, Content, EncounterRate);
         }
 
         public override void Draw(SpriteBatch spriteBatch)

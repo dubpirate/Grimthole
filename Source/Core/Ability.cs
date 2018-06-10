@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Grimthole.Core
 {
-    public class Ability : IAttacks
+    public class Ability : IAbilities
     {
         public Ability()
         {

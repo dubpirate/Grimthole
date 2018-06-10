@@ -8,6 +8,8 @@ using Grimthole.Utils;
 using System.Collections.Generic;
 using Grimthole.Core;
 using Grimthole.Interfaces;
+using Grimthole.Screens;
+using Grimthole.Abilities;
 
 namespace Grimthole
 {
@@ -24,22 +26,24 @@ namespace Grimthole
         private readonly int Gold = 0;
         private readonly int Exp = 0;
 
-        List<IAttacks> attacks = new List<IAttacks>(); //A list of all attacks the player knows
+        List<IAbilities> attacks = new List<IAbilities>(); //A list of all attacks the player knows
 
 
         //Constructor
         public Player(Vector2 coords) : base("Sprites/Man2front", coords,
             ScreenManager.Instance.TileSize, ScreenManager.Instance.TileSize)
         {
-            attacks.Add(new Abilities.Punch()); //adds a default punch move to player
+            attacks.Add(new Punch()); //adds a default punch move to player
         }
 
 
         //Updating the current game screen
-        public override void Update(Rectangle windowDimensions, GameTime gt, ContentManager content)
+        internal void Update(Rectangle windowDimensions, GameTime gt, ContentManager content, int encounterRate)
         {
             GamePadCapabilities capabilities = GamePad.GetCapabilities(PlayerIndex.One);
-
+            Boolean moved = false;
+            Random rnd = new Random();
+            int number = rnd.Next(0, 100);
             int delta = (int)(gt.ElapsedGameTime.TotalMilliseconds * 0.4);
 
             if (capabilities.IsConnected)
@@ -53,24 +57,28 @@ namespace Grimthole
                     {
                         MoveCommand.MoveLeft(this, delta);
                         name = "Sprites/Man2left";
+                        moved = true;
                     }
 
                     if (state.ThumbSticks.Left.X > 0.5f)
                     {
                         MoveCommand.MoveRight(this, delta);
                         name = "Sprites/Man2right";
+                        moved = true;
                     }
 
                     if (state.ThumbSticks.Left.Y > 0.5f)
                     {
                         MoveCommand.MoveDown(this, delta);
                         name = "Sprites/Man2back";
+                        moved = true;
                     }
 
                     if (state.ThumbSticks.Left.Y < -0.5f)
                     {
                         MoveCommand.MoveUp(this, delta);
                         name = "Sprites/Man2front";
+                        moved = true;
                     }
                 }
 
@@ -81,29 +89,37 @@ namespace Grimthole
                 {
                     MoveCommand.MoveRight(this, delta);
                     name = "Sprites/Man2right";
+                    moved = true;
                 }
 
                 if (Keyboard.GetState().IsKeyDown(Keys.A))
                 {
                     MoveCommand.MoveLeft(this, delta);
                     name = "Sprites/Man2left";
+                    moved = true;
                 }
 
                 if (Keyboard.GetState().IsKeyDown(Keys.W))
                 {
                     MoveCommand.MoveUp(this, delta);
                     name = "Sprites/Man2back";
+                    moved = true;
                 }
 
                 if (Keyboard.GetState().IsKeyDown(Keys.S))
                 {
                     MoveCommand.MoveDown(this, delta);
                     name = "Sprites/Man2front";
+                    moved = true;
                 }
             }
 
             CheckEdgeCases(windowDimensions);
             LoadContent(content);
+            if(encounterRate < number && moved)
+            {
+               // ScreenManager.Instance.ChangeScreen(new SplashScreen());
+            }
         }
 
         /// <summary>
