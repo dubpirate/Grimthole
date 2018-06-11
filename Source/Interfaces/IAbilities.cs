@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 
 namespace Grimthole.Interfaces
 {
@@ -19,7 +16,7 @@ namespace Grimthole.Interfaces
 
         float RecoveryTime { get; }
 
-        void Tick();
+		void Tick(GameTime gameTime);
     }
 
 }
