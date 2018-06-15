@@ -1,7 +1,8 @@
 ﻿using System;
+using Grimthole.MacOS.Source.Interfaces;
 using Microsoft.Xna.Framework;
 
-namespace Grimthole.Utils
+namespace Grimthole.MacOS.Source.Utils
 {
 
     /// <summary>
@@ -10,44 +11,44 @@ namespace Grimthole.Utils
     /// </summary>
 	public static class MoveCommand
     {
-        public static void MoveUp(SpriteManager sprite, int delta)
+		public static void MoveUp(Entity sprite, int delta)
         {
-            sprite.SpriteDimensions = new Rectangle(
-                sprite.SpriteDimensions.X,
-                sprite.SpriteDimensions.Y - delta,
-                sprite.SpriteDimensions.Width,
-                sprite.SpriteDimensions.Height
+			sprite.SpritePosition = new Rectangle(
+				sprite.SpritePosition.X,
+				sprite.SpritePosition.Y - delta,
+				sprite.SpritePosition.Width,
+				sprite.SpritePosition.Height
             );
         }
 
-        public static void MoveDown(SpriteManager sprite, int delta)
+		public static void MoveDown(Entity sprite, int delta)
         {
-            sprite.SpriteDimensions = new Rectangle(
-                sprite.SpriteDimensions.X,
-                sprite.SpriteDimensions.Y + delta,
-                sprite.SpriteDimensions.Width,
-                sprite.SpriteDimensions.Height
+			sprite.SpritePosition = new Rectangle(
+				sprite.SpritePosition.X,
+				sprite.SpritePosition.Y + delta,
+				sprite.SpritePosition.Width,
+				sprite.SpritePosition.Height
             );
         }
 
-        public static void MoveLeft(SpriteManager sprite, int delta)
+		public static void MoveLeft(Entity sprite, int delta)
         {
-            sprite.SpriteDimensions = new Rectangle(
-                sprite.SpriteDimensions.X - delta,
-                sprite.SpriteDimensions.Y,
-                sprite.SpriteDimensions.Width,
-                sprite.SpriteDimensions.Height
+			sprite.SpritePosition = new Rectangle(
+				sprite.SpritePosition.X - delta,
+				sprite.SpritePosition.Y,
+				sprite.SpritePosition.Width,
+				sprite.SpritePosition.Height
             );
         }
 
-        public static void MoveRight(SpriteManager sprite, int delta)
+		public static void MoveRight(Entity sprite, int delta)
         {
-            sprite.SpriteDimensions = new Rectangle(
-                sprite.SpriteDimensions.X + delta,
-                sprite.SpriteDimensions.Y,
-                sprite.SpriteDimensions.Width,
-                sprite.SpriteDimensions.Height
-            );
+			sprite.SpritePosition = new Rectangle(
+				sprite.SpritePosition.X + delta,
+				sprite.SpritePosition.Y,
+				sprite.SpritePosition.Width,
+				sprite.SpritePosition.Height
+			);
         }
     }
 }

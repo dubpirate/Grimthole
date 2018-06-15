@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Grimthole.Utils;
-using Grimthole.Core;
+﻿using Grimthole.MacOS.Source.Core;
 
-namespace Grimthole.Abilities
+namespace Grimthole.MacOS.Source.Abilities
 {
-    class Kick : Ability
+	class Kick : Attack
     {
         // Fields:
-        private readonly int _damage;
-        private readonly float _coolDown;
-        private readonly float _recoveryTime;
+        readonly int _damage;
+        readonly float _coolDown;
+        readonly float _recoveryTime;
 
         // Constructor:
         public Kick()
@@ -23,7 +17,5 @@ namespace Grimthole.Abilities
             _coolDown = 3;
             _recoveryTime = 3;
         }
-
-       
-    }
+	}
 }

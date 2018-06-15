@@ -1,11 +1,8 @@
-﻿using System;
-
-using Grimthole.Utils;
-
+﻿using Grimthole.MacOS.Source.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Grimthole.Screens
+namespace Grimthole.MacOS.Source.Screens
 {
     public class SplashScreen : GameScreen
     {

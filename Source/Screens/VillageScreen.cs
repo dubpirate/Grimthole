@@ -1,30 +1,30 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using Grimthole.Core;
-using Grimthole.NPCs;
-using Grimthole.Utils;
+using Grimthole.MacOS.Source.Controllers;
+using Grimthole.MacOS.Source.Core;
+using Grimthole.MacOS.Source.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Grimthole.Screens
+namespace Grimthole.MacOS.Source.Screens
 {
     public class VillageScreen : GameScreen 
     {
-        ArrayList tileGrass = new ArrayList();
-        ArrayList tiles = new ArrayList();
-        Point tileHeightAndWidth;
+		List<Texture2D> tiles = new List<Texture2D>();
         List<Point> points = new List<Point>();
+		Point tileHeightAndWidth;
         Player player;
-        int EncounterRate = 1;
-        Npc bob = new Bob(100, 100);
 
         public override void LoadContent()
         {
             base.LoadContent();
 
-            //Draws the player in the middle of the region
-            player = new Player(new Vector2((ScreenManager.Instance.Dimensions.Width/2- ScreenManager.Instance.TileSize), (ScreenManager.Instance.Dimensions.Height/2- ScreenManager.Instance.TileSize)));
+			controller = new ExplorationController();
+
+			//Draws the player in the middle of the region
+			player = new Player( new Vector2(
+				(ScreenManager.Instance.Dimensions.Width / 2 - ScreenManager.Instance.TileSize), 
+				(ScreenManager.Instance.Dimensions.Height / 2 - ScreenManager.Instance.TileSize)));
 
             player.LoadContent(Content);
 
@@ -43,44 +43,43 @@ namespace Grimthole.Screens
                 ScreenManager.Instance.TileSize
             );
 
+			List<Texture2D> tileGrass = new List<Texture2D>();
+
+			for (int i = 1; i < 5; i++)
+			{
+				tileGrass.Add(Content.Load<Texture2D>("Backgrounds/Grass/Grass-" + i)); //Adds the 5 different grasses to a list
+			}
             
-            for (int i = 1; i < 6; i++)
-            {
-                tileGrass.Add(Content.Load<Texture2D>("Backgrounds//Grass/Grass-"+i)); //Adds the 5 different grasses to a list
-            }
             Random rnd = new Random();
             int number = rnd.Next(0, 100);
 
-            //goes through each avaliable tile and chooses a grass tile to go there based on probabilitiy
+            // Goes through each avaliable tile and chooses a grass tile to go there based on probabilitiy
             foreach (Point point in points)
             {
                 number = rnd.Next(0, 100);
                 if(number < 45)
                 {
-                    tiles.Add((Texture2D)tileGrass[0]);
+                    tiles.Add(tileGrass[0]);
                 }
                 else if(number < 90)
                 {
-                    tiles.Add((Texture2D)tileGrass[2]);
+					tiles.Add(tileGrass[2]);
                 }
                 else if(number < 93)
                 {
-                    tiles.Add((Texture2D)tileGrass[1]);
-                }
-                else if(number < 97)
-                {
-                    tiles.Add((Texture2D)tileGrass[3]);
+                    tiles.Add(tileGrass[1]);
                 }
                 else
                 {
-                    tiles.Add((Texture2D)tileGrass[4]);
-                }           
+                    tiles.Add(tileGrass[3]);
+                }      
             }
         }
 
         public override void Update(GameTime gameTime)
         {
-            player.Update(ScreenManager.Instance.Dimensions, gameTime, Content, EncounterRate);
+			controller.Update(player, gameTime);
+            player.Update(ScreenManager.Instance.Dimensions, gameTime, Content);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -91,7 +90,7 @@ namespace Grimthole.Screens
             int i = 0;
             foreach (Point point in points)
             {
-                spriteBatch.Draw((Texture2D)tiles[i], new Rectangle(point, tileHeightAndWidth), Color.White);
+                spriteBatch.Draw(tiles[i], new Rectangle(point, tileHeightAndWidth), Color.White);
                 i++;
             }
             spriteBatch.End();

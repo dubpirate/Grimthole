@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Grimthole.Utils;
-using Grimthole.Core;
+﻿using Grimthole.MacOS.Source.Core;
 
-namespace Grimthole.Abilities
+namespace Grimthole.MacOS.Source.Abilities
 {
-    class Punch : Ability
+	public class Punch : Attack
     {
         // Fields:
         private readonly int _damage;
@@ -23,7 +17,5 @@ namespace Grimthole.Abilities
             _coolDown = 2;
             _recoveryTime = 2;
         }
-
-       
     }
 }

@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Grimthole.MacOS.Source.Controllers;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Grimthole.Utils
+namespace Grimthole.MacOS.Source.Utils
 {
     public abstract class GameScreen
     {
         protected ContentManager Content;
+
+		protected Controller controller;
 
         public virtual void LoadContent()
         {

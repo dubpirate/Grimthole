@@ -1,43 +1,20 @@
-﻿using Grimthole.Interfaces;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Grimthole.MacOS.Source.Core;
 
 namespace Grimthole.MacOS.Source.Items
 {
-	public abstract class Weapon : IItem, IAttacks
+	/// <summary>
+	/// (A Haiku)
+	///     Weapon details means
+	///     the attack it has
+	///     and how to draw it.
+    /// </summary>
+	public abstract class Weapon : Item
 	{
-		// Item Interface Auto Properties:
-		protected Texture2D texture;
-		public Texture2D Texture { get; }
-
-		protected Rectangle dimensions;
-		public Rectangle Dimensions { get; set; }
-
-
-		// Attacks Interface Auto Properties:
-		protected string name;
-        public string Name { get; }
-
-		protected int damage;
-		public int Damage { get; }
-
-		protected float coolDown;
-		public float CoolDown { get; }
-
-		protected float recoveryTime;
-		public float RecoveryTime { get; }
-
-		// Item Interface Method Overrides:
-		public abstract void LoadContent(ContentManager content);
-
-		public abstract void Update(GameTime gt, ContentManager content);
-
-		public abstract void Draw(SpriteBatch spriteBatch);
-
-		// AttackMethodOverrides:
-		public abstract void Tick(GameTime);
+		protected Attack attack;
         
-		public abstract void MakeSound();
-    }
+		protected Weapon(string name, Attack attack) : base(name)
+		{
+			this.attack = attack;
+		}
+	}
 }

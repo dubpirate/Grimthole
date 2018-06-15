@@ -1,21 +1,21 @@
-﻿using Grimthole.Core;
+﻿using Grimthole.MacOS.Source.Utils;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Grimthole.NPCs
+namespace Grimthole.MacOS.Source.NPCs
 {
-    class Bob : Npc
+	public class Bob : Entity
     {
-        private readonly String name;
-        private readonly int _x;
-        private readonly int _y;
-        public Bob(int x, int y)
-        {
-            _x = x;
-            _y = y;
-        }
-    }
+		protected Bob(Vector2 coords, int width, int height) : base("Bob", coords, width, height)
+		{
+			health = 10;
+			speed = 5;
+		}
+
+		public override void Update(Rectangle windowDimensions, GameTime gt, ContentManager content)
+		{
+			// Walk around randomly.
+		}
+	}
 }

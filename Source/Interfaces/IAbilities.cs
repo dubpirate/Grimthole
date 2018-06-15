@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 
-namespace Grimthole.Interfaces
+namespace Grimthole.MacOS.Source.Interfaces
 {
     /// <summary>
     /// This interfaces is for all the abilities anyone can learn
@@ -13,14 +10,7 @@ namespace Grimthole.Interfaces
     {
         String Name { get; }
 
-        int Damage { get; }
-
-        float CoolDown { get; }
-
-        float RecoveryTime { get; }
-
-        void Tick();
+		void DoAction();
     }
-
 }
 
