@@ -53,7 +53,7 @@ namespace Grimthole.MacOS.Source
         {
             graphics.GraphicsDevice.Clear(Color.Black);
 
-            ScreenManager.Instance.Draw(spriteBatch);
+            ScreenManager.Instance.Draw(spriteBatch, gameTime);
 
             base.Draw(gameTime);
         }

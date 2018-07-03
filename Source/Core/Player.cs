@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Input;
 
 using Grimthole.MacOS.Source.Utils;
 using Grimthole.MacOS.Source.Interfaces;
