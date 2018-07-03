@@ -1,11 +1,10 @@
-﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Grimthole.Core
+namespace Grimthole.MacOS.Source.Core
 {
     public class Tile
     {
