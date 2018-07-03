@@ -10,7 +10,7 @@ using Grimthole.MacOS.Source.Interfaces;
 using Grimthole.MacOS.Source.Abilities;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Grimthole.Core
+namespace Grimthole.MacOS.Source.Core
 {
 	public class Player : Entity
     {
