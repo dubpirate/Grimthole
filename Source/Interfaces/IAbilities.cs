@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace Grimthole.MacOS.Source.Interfaces
+namespace Grimthole.Interfaces
 {
     /// <summary>
     /// This interfaces is for all the abilities anyone can learn

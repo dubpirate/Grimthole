@@ -1,8 +1,8 @@
-﻿using Grimthole.MacOS.Source.Core;
+﻿using Grimthole.Core;
 
 using Microsoft.Xna.Framework;
 
-namespace Grimthole.MacOS.Source.Controllers
+namespace Grimthole.Controllers
 {
 	public abstract class Controller
     {

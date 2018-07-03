@@ -4,9 +4,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-using Grimthole.MacOS.Source.Screens;
+using Grimthole.Screens;
 
-namespace Grimthole.MacOS.Source.Utils
+namespace Grimthole.Utils
 {
     /// <summary>
     /// This Screen Manager switches between the relevant screens in the game.
@@ -15,7 +15,7 @@ namespace Grimthole.MacOS.Source.Utils
     {
         static ScreenManager instance;
 
-        public readonly int TileSize = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 16;
+        public readonly int TileSize = 64;
         public Rectangle Dimensions { get; private set; }
         public ContentManager Content { get; private set; }
         GameScreen currentScreen;      
@@ -66,9 +66,9 @@ namespace Grimthole.MacOS.Source.Utils
             currentScreen.Update(gameTime);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            currentScreen.Draw(spriteBatch);
+            currentScreen.Draw(spriteBatch, gameTime);
         }
     }
 }
