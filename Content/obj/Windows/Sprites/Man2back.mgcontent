@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/GGPC/Desktop/Grimthole/Grimthole/Content/Sprites/Man2back.png</SourceFile>
-  <SourceTime>2018-05-29T15:48:39.4932283+12:00</SourceTime>
-  <DestFile>C:/Users/GGPC/Desktop/Grimthole/Grimthole/Content/bin/Windows/Sprites/Man2back.xnb</DestFile>
-  <DestTime>2018-06-09T16:52:44.1962195+12:00</DestTime>
+  <SourceFile>C:/Users/Curti/Desktop/Grimthole/Grimthole/Content/Sprites/Man2back.png</SourceFile>
+  <SourceTime>2018-07-02T19:16:24+12:00</SourceTime>
+  <DestFile>C:/Users/Curti/Desktop/Grimthole/Grimthole/Content/bin/Windows/Sprites/Man2back.xnb</DestFile>
+  <DestTime>2018-07-03T16:44:57.7627332+12:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-02T04:05:36+13:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
