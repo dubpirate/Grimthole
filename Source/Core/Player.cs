@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using Grimthole.MacOS.Source.Utils;
 using Grimthole.MacOS.Source.Interfaces;
 using Grimthole.MacOS.Source.Abilities;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Grimthole.MacOS.Source.Core
 {
@@ -16,6 +17,8 @@ namespace Grimthole.MacOS.Source.Core
         // All the players stats.
 		readonly int level = 1;
         readonly int experience = 0;
+        public Rectangle pos;
+        
 
 		public int Speed { get; }
 
@@ -28,6 +31,7 @@ namespace Grimthole.MacOS.Source.Core
 			health = 100;
 			speed = 10;
             attacks.Add(new Punch()); //adds a default punch move to player
+            pos = new Rectangle((int)coords.X, (int)coords.Y, SpritePosition.Width, SpritePosition.Height);
         }
 
 		public override void Update(Rectangle windowDimensions, GameTime gt, ContentManager content)
@@ -42,17 +46,24 @@ namespace Grimthole.MacOS.Source.Core
 				MoveCommand.MoveDown(this, Math.Abs(0 - SpritePosition.Top));
             }
 
-			if (SpritePosition.Right > windowDimensions.Width)
+			if (SpritePosition.Right > ScreenManager.Instance.TileSize*60)
             {
-				MoveCommand.MoveLeft(this, Math.Abs(windowDimensions.Width - SpritePosition.Right));
+				MoveCommand.MoveLeft(this, Math.Abs(ScreenManager.Instance.TileSize * 60 - SpritePosition.Right));
             }
 
-			if (SpritePosition.Bottom > windowDimensions.Height)
+			if (SpritePosition.Bottom > ScreenManager.Instance.TileSize*40)
             {
-				MoveCommand.MoveUp(this, Math.Abs(windowDimensions.Height - SpritePosition.Bottom));
+				MoveCommand.MoveUp(this, Math.Abs(ScreenManager.Instance.TileSize * 40 - SpritePosition.Bottom));
             }
 
 			LoadContent(content);
 		}
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Begin();
+            spriteBatch.Draw(sprite, pos, Color.White);
+            spriteBatch.End();
+        }
 	}
 }
