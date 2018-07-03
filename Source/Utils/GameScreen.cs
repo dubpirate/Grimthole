@@ -28,6 +28,6 @@ namespace Grimthole.MacOS.Source.Utils
 
         public abstract void Update(GameTime gameTime);
 
-        public abstract void Draw(SpriteBatch spriteBatch);
+        public abstract void Draw(SpriteBatch spriteBatch, GameTime gameTime);
     }
 }

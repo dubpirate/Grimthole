@@ -2,9 +2,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
-using Grimthole.Interfaces;
+using Grimthole.MacOS.Source.Interfaces;
 
-namespace Grimthole.Utils
+namespace Grimthole.MacOS.Source.Utils
 {
 	/// <summary>
     /// An Entity is any Sprite that is 'alive.'
