@@ -1,13 +1,8 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Grimthole.Core;
+﻿using Grimthole.MacOS.Source.Core;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Grimthole.Screens
+namespace Grimthole.MacOS.Source.Screens
 {
     public class Camera
     {
@@ -27,13 +22,11 @@ namespace Grimthole.Screens
 
 
             var offset = Matrix.CreateTranslation(
-                GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width/2 -70, 
-                GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height/2 -70,
+                GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2 - 70,
+                GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 2 - 70,
                 0);
             
             Transform = position * offset;
-
-
         }
     }
 }
