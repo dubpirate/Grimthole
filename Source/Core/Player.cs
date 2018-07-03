@@ -5,9 +5,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 
-using Grimthole.Utils;
-using Grimthole.Interfaces;
-using Grimthole.Abilities;
+using Grimthole.MacOS.Source.Utils;
+using Grimthole.MacOS.Source.Interfaces;
+using Grimthole.MacOS.Source.Abilities;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Grimthole.Core
