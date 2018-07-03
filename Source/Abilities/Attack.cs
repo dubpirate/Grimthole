@@ -1,7 +1,7 @@
-﻿using Grimthole.Interfaces;
+﻿using Grimthole.MacOS.Source.Interfaces;
 using System;
 
-namespace Grimthole.Core
+namespace Grimthole.MacOS.Source.Core
 {
 	public abstract class Attack : IAbilities
     {
