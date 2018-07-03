@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
-namespace Grimthole.MacOS.Source.Interfaces
+namespace Grimthole.Interfaces
 {
 	public interface ISprite
     {

@@ -1,6 +1,6 @@
-﻿using Grimthole.MacOS.Source.Core;
+﻿using Grimthole.Core;
 
-namespace Grimthole.MacOS.Source.Items
+namespace Grimthole.Items
 {
 	/// <summary>
 	/// (A Haiku)

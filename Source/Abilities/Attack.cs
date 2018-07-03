@@ -1,4 +1,4 @@
-﻿using Grimthole.MacOS.Source.Interfaces;
+using Grimthole.MacOS.Source.Interfaces;
 using System;
 
 namespace Grimthole.MacOS.Source.Core

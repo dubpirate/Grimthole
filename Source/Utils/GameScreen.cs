@@ -1,10 +1,10 @@
-﻿using Grimthole.MacOS.Source.Controllers;
+﻿using Grimthole.Controllers;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Grimthole.MacOS.Source.Utils
+namespace Grimthole.Utils
 {
     public abstract class GameScreen
     {
@@ -28,6 +28,6 @@ namespace Grimthole.MacOS.Source.Utils
 
         public abstract void Update(GameTime gameTime);
 
-        public abstract void Draw(SpriteBatch spriteBatch);
+        public abstract void Draw(SpriteBatch spriteBatch, GameTime gameTime);
     }
 }

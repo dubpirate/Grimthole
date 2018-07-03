@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Grimthole.MacOS.Source.Items;
+using Grimthole.Items;
 
-namespace Grimthole1.MacOS.Source.Core
+namespace Grimthole1.Core
 {
     public class Inventory
     {
