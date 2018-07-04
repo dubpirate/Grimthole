@@ -8,14 +8,18 @@ namespace Grimthole.MacOS.Source.Controllers
 {
 	public class ExplorationController : Controller
     {
-		public override void Update(Player player, GameTime gt)
+        public override void Update(Entity entity, GameTime gt)
         {
 			int delta = 10;
-            UseControllerInput(player, delta);
-            UseKeyboardInputs(player, delta);
+            if (entity.GetType() == typeof(Player))
+            {
+                delta = -delta;
+            }
+            UseControllerInput(entity, delta);
+            UseKeyboardInputs(entity, delta);
         }
 
-        void UseControllerInput(Player player, int delta)
+        void UseControllerInput(Entity entity, int delta)
         {
             GamePadCapabilities capabilities = GamePad.GetCapabilities(PlayerIndex.One);
 
@@ -26,46 +30,46 @@ namespace Grimthole.MacOS.Source.Controllers
             {
                 if (state.ThumbSticks.Left.X < -0.5f)
                 {
-                    MoveCommand.MoveLeft(player, delta);
+                    MoveCommand.MoveLeft(entity, delta);
                 }
 
                 if (state.ThumbSticks.Left.X > 0.5f)
                 {
-                    MoveCommand.MoveRight(player, delta);
+                    MoveCommand.MoveRight(entity, delta);
                 }
 
                 if (state.ThumbSticks.Left.Y > 0.5f)
                 {
-                    MoveCommand.MoveDown(player, delta);
+                    MoveCommand.MoveDown(entity, delta);
                 }
 
                 if (state.ThumbSticks.Left.Y < -0.5f)
                 {
-                    MoveCommand.MoveUp(player, delta);
+                    MoveCommand.MoveUp(entity, delta);
                 }
             }
         }
 
-        void UseKeyboardInputs(Player player, int delta)
+        void UseKeyboardInputs(Entity entity, int delta)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                MoveCommand.MoveRight(player, delta);
+                MoveCommand.MoveRight(entity, delta);
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
-                MoveCommand.MoveLeft(player, delta);
+                MoveCommand.MoveLeft(entity, delta);
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
-                MoveCommand.MoveUp(player, delta);
+                MoveCommand.MoveUp(entity, delta);
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
-                MoveCommand.MoveDown(player, delta);
+                MoveCommand.MoveDown(entity, delta);
             }
         }
     }
