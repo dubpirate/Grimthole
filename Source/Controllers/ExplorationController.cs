@@ -10,7 +10,7 @@ namespace Grimthole.MacOS.Source.Controllers
     {
         public override void Update(Entity entity, GameTime gt)
         {
-			int delta = 10;
+			int delta = -10;
             if (entity.GetType() == typeof(Player))
             {
                 delta = -delta;
