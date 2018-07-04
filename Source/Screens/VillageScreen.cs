@@ -13,7 +13,6 @@ namespace Grimthole.MacOS.Source.Screens
         List<Vector2> points = new List<Vector2>();
         List<Entity> npcs = new List<Entity>();
         Point tileHeightAndWidth;
-        Player player;
         Texture2D SpriteSheet;
 
         List<Tile> map = new List<Tile>();
@@ -26,11 +25,13 @@ namespace Grimthole.MacOS.Source.Screens
             camera = new Camera();
 
             //Draws the player in the middle of the region
-            player = new Player(new Vector2(
+            Player player = new Player(new Vector2(
                 (ScreenManager.Instance.Dimensions.Width / 2 - ScreenManager.Instance.TileSize),
                 (ScreenManager.Instance.Dimensions.Height / 2 - ScreenManager.Instance.TileSize)));
 
             player.LoadContent(Content);
+
+            npcs.Add(player);
 
             // Constructs All NPCs then iteratively loads their content.
             Villager villager = new Villager(new Vector2(((player.pos.Left * 4) / 5), player.pos.Top));
@@ -122,13 +123,12 @@ namespace Grimthole.MacOS.Source.Screens
 
         public override void Update(GameTime gameTime)
         {
-			controller.Update(player, gameTime);
-            player.Update(ScreenManager.Instance.Dimensions, gameTime, Content);
             foreach (Entity npc in npcs)
             {
+                controller.Update(npc, gameTime);
                 npc.Update(ScreenManager.Instance.Dimensions, gameTime, Content);
             }
-            camera.Follow(player, ScreenManager.Instance.Dimensions);
+            camera.Follow((Player) npcs[0], ScreenManager.Instance.Dimensions);
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -149,7 +149,7 @@ namespace Grimthole.MacOS.Source.Screens
                 npc.Draw(spriteBatch);
             }
 
-            player.Draw(spriteBatch);
+
         }
     }
 }
