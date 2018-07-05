@@ -1,9 +1,9 @@
 ﻿using System;
-using Grimthole.MacOS.Source.Utils;
+using Grimthole.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 
-namespace Grimthole.MacOS.Source.NPCs
+namespace Grimthole.NPCs
 {
     public class Villager : Entity
     {
@@ -19,5 +19,7 @@ namespace Grimthole.MacOS.Source.NPCs
         {
             //throw new NotImplementedException();
         }
+
+        
     }
 }

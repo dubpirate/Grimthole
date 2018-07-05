@@ -1,9 +1,9 @@
-﻿using Grimthole.MacOS.Source.Utils;
+﻿using Grimthole.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using System;
 
-namespace Grimthole.MacOS.Source.NPCs
+namespace Grimthole.NPCs
 {
 	public class Bob : Entity
     {

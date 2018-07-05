@@ -1,8 +1,8 @@
 ﻿using System;
-using Grimthole.MacOS.Source.Interfaces;
+using Grimthole.Interfaces;
 using Microsoft.Xna.Framework;
 
-namespace Grimthole.MacOS.Source.Utils
+namespace Grimthole.Utils
 {
 
     /// <summary>

@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 
-using Grimthole.MacOS.Source.Utils;
-using Grimthole.MacOS.Source.Interfaces;
-using Grimthole.MacOS.Source.Abilities;
+using Grimthole.Utils;
+using Grimthole.Interfaces;
+using Grimthole.Abilities;
 using Microsoft.Xna.Framework.Graphics;
+using Grimthole.Screens;
 
-namespace Grimthole.MacOS.Source.Core
+namespace Grimthole.Core
 {
 	public class Player : Entity
     {
@@ -30,7 +31,7 @@ namespace Grimthole.MacOS.Source.Core
 			health = 100;
 			speed = 10;
             attacks.Add(new Punch()); //adds a default punch move to player
-            pos = new Rectangle((int)coords.X, (int)coords.Y, SpritePosition.Width, SpritePosition.Height);
+            pos = new Rectangle(ScreenManager.Instance.Dimensions.Width / 2 - ScreenManager.Instance.TileSize, ScreenManager.Instance.Dimensions.Height / 2 - ScreenManager.Instance.TileSize, SpritePosition.Width, SpritePosition.Height);
         }
 
 		public override void Update(Rectangle windowDimensions, GameTime gt, ContentManager content)
@@ -58,9 +59,9 @@ namespace Grimthole.MacOS.Source.Core
 			LoadContent(content);
 		}
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Camera camera)
         {
-            spriteBatch.Begin();
+            spriteBatch.Begin(transformMatrix: camera.playerTransform);
             spriteBatch.Draw(sprite, pos, Color.White);
             spriteBatch.End();
         }

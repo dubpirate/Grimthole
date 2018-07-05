@@ -3,8 +3,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Grimthole.Screens;
 
-namespace Grimthole.MacOS.Source.Interfaces
+namespace Grimthole.Interfaces
 {
 	public interface ISprite
     {
@@ -14,6 +15,6 @@ namespace Grimthole.MacOS.Source.Interfaces
 
 		void Update(Rectangle windowDimensions, GameTime gt, ContentManager content);
 
-		void Draw(SpriteBatch spriteBatch);
+		void Draw(SpriteBatch spriteBatch, Camera camera);
     }
 }

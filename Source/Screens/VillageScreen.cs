@@ -1,12 +1,12 @@
 using System.Collections.Generic;
-using Grimthole.MacOS.Source.Controllers;
-using Grimthole.MacOS.Source.Core;
-using Grimthole.MacOS.Source.NPCs;
-using Grimthole.MacOS.Source.Utils;
+using Grimthole.Controllers;
+using Grimthole.Core;
+using Grimthole.NPCs;
+using Grimthole.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Grimthole.MacOS.Source.Screens
+namespace Grimthole.Screens
 {
     public class VillageScreen : GameScreen 
     {
@@ -14,6 +14,29 @@ namespace Grimthole.MacOS.Source.Screens
         List<Entity> npcs = new List<Entity>();
         Point tileHeightAndWidth;
         Texture2D SpriteSheet;
+        Player player;
+        int width = 60;
+        int height = 40;
+
+        Tile Floor1;
+        Tile RoadSd;
+        Tile RoadFk;
+        Tile RoadUp;
+        Tile Hou1p1;
+        Tile Hou1p2;
+        Tile Hou1p3;
+        Tile Hou1p4;
+        Tile Hou1p5;
+        Tile Hou1p6;
+        Tile WallLt; //Left Wall
+        Tile WallRt; // Right Wall
+        Tile WallTp; //Top Wall
+        Tile WallBt; //Bottom Wall
+        Tile WallTL; //TopLeft Wall
+        Tile WallTR; //TopRight Wall
+        Tile WallBL; //BottomLeft Wall
+        Tile WallBR; //BottomRight Wall
+        Tile Stream;
 
         List<Tile> map = new List<Tile>();
         Camera camera;
@@ -25,13 +48,11 @@ namespace Grimthole.MacOS.Source.Screens
             camera = new Camera();
 
             //Draws the player in the middle of the region
-            Player player = new Player(new Vector2(
-                (ScreenManager.Instance.Dimensions.Width / 2 - ScreenManager.Instance.TileSize),
-                (ScreenManager.Instance.Dimensions.Height / 2 - ScreenManager.Instance.TileSize)));
+            player = new Player(new Vector2(
+                (1000),
+                (1000)));
 
             player.LoadContent(Content);
-
-            npcs.Add(player);
 
             // Constructs All NPCs then iteratively loads their content.
             Villager villager = new Villager(new Vector2(((player.pos.Left * 4) / 5), player.pos.Top));
@@ -45,24 +66,49 @@ namespace Grimthole.MacOS.Source.Screens
 
             controller = new ExplorationController();
 
-            Tile Floor1 = new Tile(new Rectangle(new Point(0, 0), new Point(64, 64)));
-            Tile WallLt = new Tile(new Rectangle(new Point(64, 0), new Point(64, 64)));
-            Tile WallRt = new Tile(new Rectangle(new Point(128, 0), new Point(64, 64)));
-            Tile WallTp = new Tile(new Rectangle(new Point(192, 0), new Point(64, 64)));
-            Tile WallBt = new Tile(new Rectangle(new Point(256, 0), new Point(64, 64)));
-            Tile WallTL = new Tile(new Rectangle(new Point(320, 0), new Point(64, 64)));
-            Tile WallTR = new Tile(new Rectangle(new Point(384, 0), new Point(64, 64)));
-            Tile WallBL = new Tile(new Rectangle(new Point(448, 0), new Point(64, 64)));
-            Tile WallBR = new Tile(new Rectangle(new Point(0, 64), new Point(64, 64)));
-            Tile Stream = new Tile(new Rectangle(new Point(576, 0), new Point(64, 64)));
+            Floor1 = new Tile(new Rectangle(new Point(0, 0), new Point(32, 32)));
+            Stream = new Tile(new Rectangle(new Point(0, 32), new Point(32, 32)));
+            RoadSd = new Tile(new Rectangle(new Point(32, 0), new Point(32, 32)));
+            RoadUp = new Tile(new Rectangle(new Point(64, 32), new Point(32, 32)));
+            RoadFk = new Tile(new Rectangle(new Point(64, 0), new Point(32, 32)));
+            Hou1p1 = new Tile(new Rectangle(new Point(96, 0), new Point(32, 32)));
+            Hou1p2 = new Tile(new Rectangle(new Point(128, 0), new Point(32, 32)));
+            Hou1p3 = new Tile(new Rectangle(new Point(162, 0), new Point(32, 32)));
+            Hou1p4 = new Tile(new Rectangle(new Point(96, 32), new Point(32, 32)));
+            Hou1p5 = new Tile(new Rectangle(new Point(128, 32), new Point(32, 32)));
+            Hou1p6 = new Tile(new Rectangle(new Point(162, 32), new Point(32, 32)));
+            WallBL = new Tile(new Rectangle(new Point(32, 64), new Point(32, 32)));
+            WallBR = new Tile(new Rectangle(new Point(64, 64), new Point(32, 32)));
+            WallLt = new Tile(new Rectangle(new Point(96, 64), new Point(32, 32)));
+            WallRt = new Tile(new Rectangle(new Point(128, 64), new Point(32, 32)));
+            WallTL = new Tile(new Rectangle(new Point(160, 64), new Point(32, 32)));
+            WallTR = new Tile(new Rectangle(new Point(192, 64), new Point(32, 32)));
+            WallTp = new Tile(new Rectangle(new Point(0, 64), new Point(32, 32)));
+            WallBt = new Tile(new Rectangle(new Point(224, 64), new Point(32, 32)));
 
-            SpriteSheet = Content.Load<Texture2D>("Backgrounds/cave2");
+            /*
+            Floor1 = new Tile(new Rectangle(new Point(0, 0), new Point(64, 64)));
+            Stream = new Tile(new Rectangle(new Point(0, 64), new Point(64, 64)));
+            RoadSd = new Tile(new Rectangle(new Point(64, 0), new Point(64, 64)));
+            RoadUp = new Tile(new Rectangle(new Point(128, 64), new Point(64, 64)));
+            RoadFk = new Tile(new Rectangle(new Point(128, 0), new Point(64, 64)));
+            House = new Tile(new Rectangle(new Point(128, 0), new Point(64, 64)));
+            WallBL = new Tile(new Rectangle(new Point(64, 128), new Point(64, 64)));
+            WallBR = new Tile(new Rectangle(new Point(128, 128), new Point(64, 64)));
+            WallLt = new Tile(new Rectangle(new Point(192, 128), new Point(64, 64)));
+            WallRt = new Tile(new Rectangle(new Point(256, 128), new Point(64, 64)));
+            WallTL = new Tile(new Rectangle(new Point(320, 128), new Point(64, 64)));
+            WallTR = new Tile(new Rectangle(new Point(384, 128), new Point(64, 64)));
+            WallTp = new Tile(new Rectangle(new Point(0, 128), new Point(64, 64)));
+            WallBt = new Tile(new Rectangle(new Point(448, 128), new Point(64, 64)));
+            */
+            SpriteSheet = Content.Load<Texture2D>("Backgrounds/cave3");
 
 
             // Sets the region that is drawn
-            for (var i = 0; i < ScreenManager.Instance.TileSize * 40; i += ScreenManager.Instance.TileSize)
+            for (var i = 0; i < ScreenManager.Instance.TileSize * height; i += ScreenManager.Instance.TileSize)
             {
-                for (var j = 0; j < ScreenManager.Instance.TileSize * 60; j += ScreenManager.Instance.TileSize)
+                for (var j = 0; j < ScreenManager.Instance.TileSize * width; j += ScreenManager.Instance.TileSize)
                 {
                     points.Add(new Vector2(j, i));
                 }
@@ -74,7 +120,27 @@ namespace Grimthole.MacOS.Source.Screens
                 ScreenManager.Instance.TileSize
             );
 
-            map = new List<Tile>{WallTL, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTR, WallTL, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp,
+            map = new List<Tile>{WallTL, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTR,
+                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
+                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
+                                WallLt, Floor1, Hou1p1, Hou1p2, Hou1p3, Floor1, Floor1, Floor1, RoadUp, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,WallRt,
+                                WallLt, Floor1, Hou1p4, Hou1p5, Hou1p6, Floor1, Floor1, Floor1, RoadUp, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
+                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, RoadUp, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
+                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, RoadUp, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
+                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, RoadUp, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
+                                WallLt, RoadSd, RoadSd, RoadSd, RoadSd, RoadSd, RoadSd, RoadSd, RoadFk, RoadSd, RoadSd, RoadSd, RoadSd, RoadSd, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
+                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
+                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
+                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
+                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
+                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
+                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
+                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
+                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
+                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
+                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
+                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
+                                Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream,Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream,Stream, Stream, Stream, Stream, Stream, Stream, Stream,
                                 WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
                                 WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
                                 WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
@@ -93,28 +159,7 @@ namespace Grimthole.MacOS.Source.Screens
                                 WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
                                 WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
                                 WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
-                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
-                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
-                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
-                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
-                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
-                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
-                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
-                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
-                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
-                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
-                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
-                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
-                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
-                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
-                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
-                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
-                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
-                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
-                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
-                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
-                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
-                                WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
+                                WallBL, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallBR
 
                                 };
 
@@ -125,10 +170,11 @@ namespace Grimthole.MacOS.Source.Screens
         {
             foreach (Entity npc in npcs)
             {
-                controller.Update(npc, gameTime);
                 npc.Update(ScreenManager.Instance.Dimensions, gameTime, Content);
             }
-            camera.Follow((Player) npcs[0], ScreenManager.Instance.Dimensions);
+            controller.Update(player, gameTime);
+            player.Update(ScreenManager.Instance.Dimensions, gameTime, Content);
+            camera.Follow(player, width, height);
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -139,15 +185,17 @@ namespace Grimthole.MacOS.Source.Screens
             int i = 0;
             foreach (Vector2 point in points)
             {
-                spriteBatch.Draw(SpriteSheet, point, map[i].getSourceRectangle(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                spriteBatch.Draw(SpriteSheet, point, map[i].getSourceRectangle(), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
                 i++;
             }
+            
             spriteBatch.End();
-
             foreach (Entity npc in npcs)
             {
-                npc.Draw(spriteBatch);
+                npc.Draw(spriteBatch, camera);
             }
+
+            player.Draw(spriteBatch, camera);
 
 
         }

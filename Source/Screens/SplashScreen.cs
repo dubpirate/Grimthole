@@ -1,8 +1,8 @@
-﻿using Grimthole.MacOS.Source.Utils;
+﻿using Grimthole.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Grimthole.MacOS.Source.Screens
+namespace Grimthole.Screens
 {
     public class SplashScreen : GameScreen
     {
@@ -15,7 +15,7 @@ namespace Grimthole.MacOS.Source.Screens
             base.LoadContent();
 
             // We only want to spend 4 seconds on the splash screen.
-            timer = 4;
+            timer = 1;
 
             // The logo should appear in the centre of the screen, and slightly
             // above 1/2 way up to make room for the Text.
@@ -51,7 +51,7 @@ namespace Grimthole.MacOS.Source.Screens
             }
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             spriteBatch.Begin();
             spriteBatch.Draw(logo, logoPosition, Color.White);
