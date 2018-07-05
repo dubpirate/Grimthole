@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 
-using Grimthole.MacOS.Source.Utils;
-using Grimthole.MacOS.Source.Interfaces;
-using Grimthole.MacOS.Source.Abilities;
+using Grimthole.Utils;
+using Grimthole.Interfaces;
+using Grimthole.Abilities;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Grimthole.MacOS.Source.Core
+namespace Grimthole.Core
 {
 	public class Player : Entity
     {

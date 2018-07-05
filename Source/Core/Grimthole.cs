@@ -1,9 +1,9 @@
-﻿using Grimthole.MacOS.Source.Utils;
+﻿using Grimthole.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Grimthole.MacOS.Source
+namespace Grimthole
 {
     /// <summary>
     /// This is the main type for Grimthole.

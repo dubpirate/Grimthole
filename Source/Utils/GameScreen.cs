@@ -1,10 +1,10 @@
-﻿using Grimthole.MacOS.Source.Controllers;
+﻿using Grimthole.Controllers;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Grimthole.MacOS.Source.Utils
+namespace Grimthole.Utils
 {
     public abstract class GameScreen
     {

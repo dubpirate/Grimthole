@@ -1,8 +1,8 @@
-﻿using Grimthole.MacOS.Source.Core;
+﻿using Grimthole.Core;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Grimthole.MacOS.Source.Screens
+namespace Grimthole.Screens
 {
     public class Camera
     {

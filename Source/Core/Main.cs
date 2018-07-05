@@ -1,8 +1,6 @@
-﻿#region Using Statements
-using AppKit;
-#endregion
+﻿using System;
 
-namespace Grimthole.MacOS.Source
+namespace Grimthole
 {
     static class Program
     {
@@ -11,7 +9,6 @@ namespace Grimthole.MacOS.Source
         /// </summary>
         static void Main(string[] args)
         {
-            NSApplication.Init();
             
 			using (var game = new Grimthole())
             {

@@ -1,9 +1,9 @@
-﻿using Grimthole.MacOS.Source.Core;
+﻿using Grimthole.Core;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Grimthole.MacOS.Source.Items
+namespace Grimthole.Items
 {
 	public abstract class Item
     {

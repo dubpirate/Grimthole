@@ -1,16 +1,16 @@
-﻿using Grimthole.MacOS.Source.Core;
-using Grimthole.MacOS.Source.Utils;
+﻿using Grimthole.Core;
+using Grimthole.Utils;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace Grimthole.MacOS.Source.Controllers
+namespace Grimthole.Controllers
 {
 	public class ExplorationController : Controller
     {
         public override void Update(Entity entity, GameTime gt)
         {
-			int delta = 10;
+			int delta = -10;
             if (entity.GetType() == typeof(Player))
             {
                 delta = -delta;
