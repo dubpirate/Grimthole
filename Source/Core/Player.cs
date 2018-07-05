@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Input;
 
 using Grimthole.Utils;
 using Grimthole.Interfaces;
 using Grimthole.Abilities;
 using Microsoft.Xna.Framework.Graphics;
+using Grimthole.Screens;
 
 namespace Grimthole.Core
 {
@@ -31,7 +31,7 @@ namespace Grimthole.Core
 			health = 100;
 			speed = 10;
             attacks.Add(new Punch()); //adds a default punch move to player
-            pos = new Rectangle((int)coords.X, (int)coords.Y, SpritePosition.Width, SpritePosition.Height);
+            pos = new Rectangle(ScreenManager.Instance.Dimensions.Width / 2 - ScreenManager.Instance.TileSize, ScreenManager.Instance.Dimensions.Height / 2 - ScreenManager.Instance.TileSize, SpritePosition.Width, SpritePosition.Height);
         }
 
 		public override void Update(Rectangle windowDimensions, GameTime gt, ContentManager content)
@@ -59,9 +59,9 @@ namespace Grimthole.Core
 			LoadContent(content);
 		}
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Camera camera)
         {
-            spriteBatch.Begin();
+            spriteBatch.Begin(transformMatrix: camera.playerTransform);
             spriteBatch.Draw(sprite, pos, Color.White);
             spriteBatch.End();
         }

@@ -14,7 +14,7 @@ namespace Grimthole.Screens
         {
             base.LoadContent();
 
-            // We only want to spend 1 seconds on the splash screen.
+            // We only want to spend 4 seconds on the splash screen.
             timer = 1;
 
             // The logo should appear in the centre of the screen, and slightly

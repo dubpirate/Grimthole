@@ -11,7 +11,6 @@ C:\Users\Curti\Desktop\Grimthole\Grimthole\bin\Windows\x86\Debug\Content\Backgro
 C:\Users\Curti\Desktop\Grimthole\Grimthole\bin\Windows\x86\Debug\Content\Backgrounds\Grass-1.xnb
 C:\Users\Curti\Desktop\Grimthole\Grimthole\bin\Windows\x86\Debug\Grimthole.exe
 C:\Users\Curti\Desktop\Grimthole\Grimthole\bin\Windows\x86\Debug\Grimthole.pdb
-C:\Users\Curti\Desktop\Grimthole\Grimthole\bin\Windows\x86\Debug\MonoGame.Framework.dll
 C:\Users\Curti\Desktop\Grimthole\Grimthole\bin\Windows\x86\Debug\SharpDX.MediaFoundation.dll
 C:\Users\Curti\Desktop\Grimthole\Grimthole\bin\Windows\x86\Debug\SharpDX.dll
 C:\Users\Curti\Desktop\Grimthole\Grimthole\bin\Windows\x86\Debug\SharpDX.XAudio2.dll
@@ -35,3 +34,4 @@ C:\Users\Curti\Desktop\Grimthole\Grimthole\obj\x86\Debug\Grimthole.csproj.CopyCo
 C:\Users\Curti\Desktop\Grimthole\Grimthole\obj\x86\Debug\Grimthole.exe
 C:\Users\Curti\Desktop\Grimthole\Grimthole\obj\x86\Debug\Grimthole.pdb
 C:\Users\Curti\Desktop\Grimthole\Grimthole\bin\Windows\x86\Debug\Content\cave2.xnb
+C:\Users\Curti\Desktop\Grimthole\Grimthole\bin\Windows\x86\Debug\Content\Backgrounds\cave3.xnb

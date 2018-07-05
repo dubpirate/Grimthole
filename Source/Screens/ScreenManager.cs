@@ -68,7 +68,7 @@ namespace Grimthole.Utils
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            currentScreen.Draw(spriteBatch, gameTime);
+            currentScreen.Draw(spriteBatch,  gameTime);
         }
     }
 }
