@@ -8,6 +8,7 @@ using Grimthole.Utils;
 using Grimthole.Interfaces;
 using Grimthole.Abilities;
 using Microsoft.Xna.Framework.Graphics;
+using Grimthole.Screens;
 
 namespace Grimthole.Core
 {
@@ -17,9 +18,9 @@ namespace Grimthole.Core
 		readonly int level = 1;
         readonly int experience = 0;
         public Rectangle pos;
-        
 
-		public int Speed { get; }
+
+        public int Speed { get; }
 
 		// A list of all attacks the player knows.
         List<IAbilities> attacks = new List<IAbilities>();
@@ -30,7 +31,7 @@ namespace Grimthole.Core
 			health = 100;
 			speed = 10;
             attacks.Add(new Punch()); //adds a default punch move to player
-            pos = new Rectangle((int)coords.X, (int)coords.Y, SpritePosition.Width, SpritePosition.Height);
+            pos = new Rectangle(ScreenManager.Instance.Dimensions.Width / 2 - ScreenManager.Instance.TileSize, ScreenManager.Instance.Dimensions.Height / 2 - ScreenManager.Instance.TileSize, SpritePosition.Width, SpritePosition.Height);
         }
 
 		public override void Update(Rectangle windowDimensions, GameTime gt, ContentManager content)
@@ -58,11 +59,7 @@ namespace Grimthole.Core
 			LoadContent(content);
 		}
 
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Begin();
-            spriteBatch.Draw(sprite, pos, Color.White);
-            spriteBatch.End();
-        }
-	}
+
+    }
 }
+

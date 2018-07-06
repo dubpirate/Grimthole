@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Grimthole.Interfaces;
+using Grimthole.Screens;
 
 namespace Grimthole.Utils
 {
@@ -37,10 +38,10 @@ namespace Grimthole.Utils
 
 		public abstract void Update(Rectangle windowDimensions, GameTime gt, ContentManager content);
 
-        public virtual void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch, Camera camera)
         {
-            spriteBatch.Begin();
-			spriteBatch.Draw(sprite, SpritePosition, Color.White);
+            spriteBatch.Begin(transformMatrix: camera.Transform);
+            spriteBatch.Draw(sprite, SpritePosition, Color.White);
             spriteBatch.End();
         }
     }

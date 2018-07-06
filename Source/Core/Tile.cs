@@ -4,7 +4,7 @@ namespace Grimthole.Core
 {
     public class Tile
     {
-        public enum TileTypes { UnCollidable, Collidable, Damge };
+        public enum TileTypes { UnCollidable, Collidable, Damage };
         private TileTypes tileType;
         private Rectangle SourceRectangle;
         public Tile(Rectangle r)
@@ -22,6 +22,11 @@ namespace Grimthole.Core
         public Rectangle getSourceRectangle()
         {
             return SourceRectangle;
+        }
+
+        public TileTypes GetTileTypes()
+        {
+            return tileType;
         }
     }
 }

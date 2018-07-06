@@ -2,24 +2,165 @@
 using Grimthole.Utils;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
 
 namespace Grimthole.Controllers
 {
 	public class ExplorationController : Controller
     {
-        public override void Update(Entity entity, GameTime gt)
+        int delta = 10; //speed at which the player moves
+        public override void Update(Entity entity, GameTime gt, List<Entity> npcs, List<Tile> map, List<Vector2> points)
         {
-			int delta = -10;
+			//checks if entity passed is player for movement checks
             if (entity.GetType() == typeof(Player))
             {
-                delta = -delta;
+                UseControllerInput(entity, delta, npcs, map, points);
+                UseKeyboardInputs(entity, delta, npcs, map, points);
             }
-            UseControllerInput(entity, delta);
-            UseKeyboardInputs(entity, delta);
+            
+
         }
 
-        void UseControllerInput(Entity entity, int delta)
+        //checks if player is next to another npc for when the action key gets pressed
+        Boolean CheckSpriteCollision(Entity player, List<Entity> npcs, List<Tile> map)
+        {
+            for (int i = 0; i < npcs.Count; i++)
+            {
+                if (player.SpritePosition.Left < npcs[i].SpritePosition.Right && player.SpritePosition.Top < npcs[i].SpritePosition.Bottom && player.SpritePosition.Right > npcs[i].SpritePosition.Left && player.SpritePosition.Bottom > npcs[i].SpritePosition.Top)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        //checks if there is a collisions to entities left
+        Boolean CheckLeftCollision(Entity player, List<Entity> npcs, List<Tile> map, List<Vector2> points)
+        {
+            for (int i = 0; i < npcs.Count; i++)
+            {
+                if (player.SpritePosition.Left < npcs[i].SpritePosition.Right && player.SpritePosition.Top < npcs[i].SpritePosition.Bottom && player.SpritePosition.Right > npcs[i].SpritePosition.Left && player.SpritePosition.Bottom > npcs[i].SpritePosition.Top)
+                {
+                    if (player.SpritePosition.Left > npcs[i].SpritePosition.Left)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            for (int i = 0; i < map.Count; i++)
+            {
+                if (map[i].GetTileTypes().Equals(Tile.TileTypes.Collidable))
+                {
+                    if (player.SpritePosition.Left < points[i].X + ScreenManager.Instance.TileSize && player.SpritePosition.Top < points[i].Y + ScreenManager.Instance.TileSize && player.SpritePosition.Right > points[i].X && player.SpritePosition.Bottom > points[i].Y + delta)
+                    {
+                        if (player.SpritePosition.Left > points[i].X)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
+        //checks if there is a collisions to entities right
+        Boolean CheckRightCollision(Entity player, List<Entity> npcs, List<Tile> map, List<Vector2> points)
+        {
+            for (int i = 0; i < npcs.Count; i++)
+            {
+                if (player.SpritePosition.Left < npcs[i].SpritePosition.Right && player.SpritePosition.Top < npcs[i].SpritePosition.Bottom && player.SpritePosition.Right > npcs[i].SpritePosition.Left && player.SpritePosition.Bottom > npcs[i].SpritePosition.Top)
+                {
+                    if (player.SpritePosition.Right < npcs[i].SpritePosition.Right)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            for (int i = 0; i < map.Count; i++)
+            {
+                if (map[i].GetTileTypes().Equals(Tile.TileTypes.Collidable))
+                {
+                    if (player.SpritePosition.Left < points[i].X + ScreenManager.Instance.TileSize && player.SpritePosition.Top < points[i].Y + ScreenManager.Instance.TileSize - delta && player.SpritePosition.Right > points[i].X && player.SpritePosition.Bottom > points[i].Y + delta)
+                    {
+                        if (player.SpritePosition.Right < points[i].X + ScreenManager.Instance.TileSize)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
+
+        //checks if there is a collisions above the entity
+        Boolean CheckUpCollision(Entity player, List<Entity> npcs, List<Tile> map, List<Vector2> points)
+        {
+            for (int i = 0; i < npcs.Count; i++)
+            {
+                if (player.SpritePosition.Left < npcs[i].SpritePosition.Right && player.SpritePosition.Top < npcs[i].SpritePosition.Bottom && player.SpritePosition.Right > npcs[i].SpritePosition.Left && player.SpritePosition.Bottom > npcs[i].SpritePosition.Top)
+                {
+                    if (player.SpritePosition.Top > npcs[i].SpritePosition.Top)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            for (int i = 0; i < map.Count; i++)
+            {
+                if (map[i].GetTileTypes().Equals(Tile.TileTypes.Collidable))
+                {
+                    if (player.SpritePosition.Left + delta < points[i].X + ScreenManager.Instance.TileSize && player.SpritePosition.Top < points[i].Y + ScreenManager.Instance.TileSize + delta && player.SpritePosition.Right > points[i].X + delta && player.SpritePosition.Bottom > points[i].Y)
+                    {
+                        if (player.SpritePosition.Top > points[i].Y)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
+
+        //checks if there is a collisions below the entity
+        Boolean CheckBottomCollision(Entity player, List<Entity> npcs, List<Tile> map, List<Vector2> points)
+        {
+            for (int i = 0; i < npcs.Count; i++)
+            {
+                if (player.SpritePosition.Left < npcs[i].SpritePosition.Right && player.SpritePosition.Top < npcs[i].SpritePosition.Bottom && player.SpritePosition.Right > npcs[i].SpritePosition.Left && player.SpritePosition.Bottom > npcs[i].SpritePosition.Top)
+                {
+                    if (player.SpritePosition.Bottom < npcs[i].SpritePosition.Bottom)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            for (int i = 0; i < map.Count; i++)
+            {
+                if (map[i].GetTileTypes().Equals(Tile.TileTypes.Collidable))
+                {
+                    if (player.SpritePosition.Left < points[i].X + ScreenManager.Instance.TileSize - delta && player.SpritePosition.Top < points[i].Y + ScreenManager.Instance.TileSize && player.SpritePosition.Right > points[i].X + delta && player.SpritePosition.Bottom > points[i].Y)
+                    {
+                        if (player.SpritePosition.Bottom < points[i].Y + ScreenManager.Instance.TileSize)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+       
+
+        void UseControllerInput(Entity entity, int delta, List<Entity> npcs, List<Tile> map, List<Vector2> points)
         {
             GamePadCapabilities capabilities = GamePad.GetCapabilities(PlayerIndex.One);
 
@@ -50,26 +191,31 @@ namespace Grimthole.Controllers
             }
         }
 
-        void UseKeyboardInputs(Entity entity, int delta)
+        void UseKeyboardInputs(Entity entity, int delta, List<Entity> npcs, List<Tile> map, List<Vector2> points)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.D))
+            if (Keyboard.GetState().IsKeyDown(Keys.D) && CheckRightCollision(entity, npcs, map, points))
             {
                 MoveCommand.MoveRight(entity, delta);
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
+            if (Keyboard.GetState().IsKeyDown(Keys.A) && CheckLeftCollision(entity, npcs, map, points))
             {
                 MoveCommand.MoveLeft(entity, delta);
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.W))
+            if (Keyboard.GetState().IsKeyDown(Keys.W) && CheckUpCollision(entity, npcs, map, points))
             {
                 MoveCommand.MoveUp(entity, delta);
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.S))
+            if (Keyboard.GetState().IsKeyDown(Keys.S) && CheckBottomCollision(entity, npcs, map, points))
             {
                 MoveCommand.MoveDown(entity, delta);
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.J) && CheckSpriteCollision(entity, npcs, map))
+            {
+                
             }
         }
     }

@@ -14,6 +14,9 @@ namespace Grimthole.Screens
         List<Entity> npcs = new List<Entity>();
         Point tileHeightAndWidth;
         Texture2D SpriteSheet;
+        Player player;
+        int width = 60;
+        int height = 40;
 
         Tile Floor1;
         Tile RoadSd;
@@ -45,18 +48,17 @@ namespace Grimthole.Screens
             camera = new Camera();
 
             //Draws the player in the middle of the region
-            Player player = new Player(new Vector2(
-                (ScreenManager.Instance.Dimensions.Width / 2 - ScreenManager.Instance.TileSize),
-                (ScreenManager.Instance.Dimensions.Height / 2 - ScreenManager.Instance.TileSize)));
+            player = new Player(new Vector2(1000, 1000));
+               
 
             player.LoadContent(Content);
 
-            npcs.Add(player);
 
             // Constructs All NPCs then iteratively loads their content.
-            Villager villager = new Villager(new Vector2(((player.pos.Left * 4) / 5), player.pos.Top));
-
+            Villager villager = new Villager(new Vector2(300,300));
+            Villager villager2 = new Villager(new Vector2(600, 600));
             npcs.Add(villager);
+            npcs.Add(villager2);
 
             foreach (Entity npc in npcs)
             {
@@ -65,8 +67,9 @@ namespace Grimthole.Screens
 
             controller = new ExplorationController();
 
+            //sets each tile images from the sprite sheet into their own variables
             Floor1 = new Tile(new Rectangle(new Point(0, 0), new Point(32, 32)));
-            Stream = new Tile(new Rectangle(new Point(0, 32), new Point(32, 32)));
+            Stream = new Tile(new Rectangle(new Point(0, 32), new Point(32, 32)), Tile.TileTypes.Collidable);
             RoadSd = new Tile(new Rectangle(new Point(32, 0), new Point(32, 32)));
             RoadUp = new Tile(new Rectangle(new Point(64, 32), new Point(32, 32)));
             RoadFk = new Tile(new Rectangle(new Point(64, 0), new Point(32, 32)));
@@ -78,12 +81,12 @@ namespace Grimthole.Screens
             Hou1p6 = new Tile(new Rectangle(new Point(162, 32), new Point(32, 32)));
             WallBL = new Tile(new Rectangle(new Point(32, 64), new Point(32, 32)));
             WallBR = new Tile(new Rectangle(new Point(64, 64), new Point(32, 32)));
-            WallLt = new Tile(new Rectangle(new Point(96, 64), new Point(32, 32)));
-            WallRt = new Tile(new Rectangle(new Point(128, 64), new Point(32, 32)));
+            WallLt = new Tile(new Rectangle(new Point(96, 64), new Point(32, 32)), Tile.TileTypes.Collidable);
+            WallRt = new Tile(new Rectangle(new Point(128, 64), new Point(32, 32)), Tile.TileTypes.Collidable);
             WallTL = new Tile(new Rectangle(new Point(160, 64), new Point(32, 32)));
             WallTR = new Tile(new Rectangle(new Point(192, 64), new Point(32, 32)));
-            WallTp = new Tile(new Rectangle(new Point(0, 64), new Point(32, 32)));
-            WallBt = new Tile(new Rectangle(new Point(224, 64), new Point(32, 32)));
+            WallTp = new Tile(new Rectangle(new Point(0, 64), new Point(32, 32)), Tile.TileTypes.Collidable);
+            WallBt = new Tile(new Rectangle(new Point(224, 64), new Point(32, 32)), Tile.TileTypes.Collidable);
 
             /*
             Floor1 = new Tile(new Rectangle(new Point(0, 0), new Point(64, 64)));
@@ -101,13 +104,14 @@ namespace Grimthole.Screens
             WallTp = new Tile(new Rectangle(new Point(0, 128), new Point(64, 64)));
             WallBt = new Tile(new Rectangle(new Point(448, 128), new Point(64, 64)));
             */
+
             SpriteSheet = Content.Load<Texture2D>("Backgrounds/cave3");
 
 
             // Sets the region that is drawn
-            for (var i = 0; i < ScreenManager.Instance.TileSize * 40; i += ScreenManager.Instance.TileSize)
+            for (var i = 0; i < ScreenManager.Instance.TileSize * height; i += ScreenManager.Instance.TileSize)
             {
-                for (var j = 0; j < ScreenManager.Instance.TileSize * 60; j += ScreenManager.Instance.TileSize)
+                for (var j = 0; j < ScreenManager.Instance.TileSize * width; j += ScreenManager.Instance.TileSize)
                 {
                     points.Add(new Vector2(j, i));
                 }
@@ -119,6 +123,8 @@ namespace Grimthole.Screens
                 ScreenManager.Instance.TileSize
             );
 
+
+            //The actual tile for each position on the village screen
             map = new List<Tile>{WallTL, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTR,
                                 WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
                                 WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
@@ -139,7 +145,7 @@ namespace Grimthole.Screens
                                 WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
                                 WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
                                 WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
-                                Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream,Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream,Stream, Stream, Stream, Stream, Stream, Stream, Stream,
+                                Stream, Stream, Stream, Stream, Stream, Floor1, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream,Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream, Stream,Stream, Stream, Stream, Stream, Stream, Stream, Stream,
                                 WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
                                 WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
                                 WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
@@ -167,17 +173,20 @@ namespace Grimthole.Screens
 
         public override void Update(GameTime gameTime)
         {
+            //updates each npc on the curent screen
             foreach (Entity npc in npcs)
             {
-                controller.Update(npc, gameTime);
                 npc.Update(ScreenManager.Instance.Dimensions, gameTime, Content);
             }
-            camera.Follow((Player) npcs[0], ScreenManager.Instance.Dimensions);
+
+            controller.Update(player, gameTime, npcs, map, points);
+            player.Update(ScreenManager.Instance.Dimensions, gameTime, Content);
+            camera.Follow(player, width, height);
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            spriteBatch.Begin(transformMatrix: camera.Transform);
+            spriteBatch.Begin(transformMatrix:camera.Transform);
 
             //draws each tile in the region
             int i = 0;
@@ -186,12 +195,16 @@ namespace Grimthole.Screens
                 spriteBatch.Draw(SpriteSheet, point, map[i].getSourceRectangle(), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
                 i++;
             }
+
+
             spriteBatch.End();
 
             foreach (Entity npc in npcs)
             {
-                npc.Draw(spriteBatch);
+                npc.Draw(spriteBatch, camera);
             }
+
+            player.Draw(spriteBatch, camera);
 
 
         }

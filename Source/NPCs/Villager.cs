@@ -1,7 +1,9 @@
 ﻿using System;
+using Grimthole.Screens;
 using Grimthole.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Grimthole.NPCs
 {
@@ -19,5 +21,7 @@ namespace Grimthole.NPCs
         {
             //throw new NotImplementedException();
         }
+
+
     }
 }
