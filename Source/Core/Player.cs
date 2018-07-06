@@ -58,10 +58,7 @@ namespace Grimthole.Core
             }
             currentAnimation.Update(gt);
             LoadContent(content);
-		}
-
-
-
     }
+
 }
 

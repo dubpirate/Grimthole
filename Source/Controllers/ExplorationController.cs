@@ -1,4 +1,4 @@
-﻿using Grimthole.Core;
+using Grimthole.Core;
 using Grimthole.NPCs;
 using Grimthole.Screens;
 using Grimthole.Utils;

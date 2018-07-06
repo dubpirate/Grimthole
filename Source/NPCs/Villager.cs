@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Grimthole.Screens;
 using Grimthole.Utils;
 using Microsoft.Xna.Framework;

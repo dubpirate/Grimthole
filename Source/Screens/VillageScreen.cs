@@ -99,6 +99,7 @@ namespace Grimthole.Screens
             WallTp = new Tile(new Rectangle(new Point(0, 64), new Point(32, 32)), Tile.TileTypes.Collidable);
             WallBt = new Tile(new Rectangle(new Point(224, 64), new Point(32, 32)), Tile.TileTypes.Collidable);
 
+
             /*
             Floor1 = new Tile(new Rectangle(new Point(0, 0), new Point(64, 64)));
             Stream = new Tile(new Rectangle(new Point(0, 64), new Point(64, 64)));
@@ -115,7 +116,6 @@ namespace Grimthole.Screens
             WallTp = new Tile(new Rectangle(new Point(0, 128), new Point(64, 64)));
             WallBt = new Tile(new Rectangle(new Point(448, 128), new Point(64, 64)));
             */
-
             SpriteSheet = Content.Load<Texture2D>("Backgrounds/cave3");
 
 
@@ -133,9 +133,6 @@ namespace Grimthole.Screens
                 ScreenManager.Instance.TileSize,
                 ScreenManager.Instance.TileSize
             );
-
-
-            //The actual tile for each position on the village screen
             map = new List<Tile>{WallTL, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTp, WallTR,
                                 WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
                                 WallLt, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, Floor1,Floor1, Floor1, Floor1, Floor1, Floor1, Floor1, WallRt,
@@ -179,7 +176,6 @@ namespace Grimthole.Screens
 
                                 };
 
-
         }
 
         public override void Update(GameTime gameTime)
@@ -189,8 +185,8 @@ namespace Grimthole.Screens
             {
                 npc.Update(ScreenManager.Instance.Dimensions, gameTime, Content);
             }
-
             controller.Update(player, gameTime, npcs, map, points, textBubble);
+
             player.Update(ScreenManager.Instance.Dimensions, gameTime, Content);
             camera.Follow(player, width, height);
         }
@@ -206,19 +202,16 @@ namespace Grimthole.Screens
                 spriteBatch.Draw(SpriteSheet, point, map[i].getSourceRectangle(), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
                 i++;
             }
-
-
+            
             spriteBatch.End();
-
             foreach (Entity npc in npcs)
             {
                 npc.Draw(spriteBatch, camera);
             }
 
             player.Draw(spriteBatch, camera);
-
+            
             controller.Draw(spriteBatch, camera);
-
         }
     }
 }

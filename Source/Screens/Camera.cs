@@ -16,6 +16,7 @@ namespace Grimthole.Screens
         Boolean playerMoveY;
 
         public void Follow(Player target, int width, int height)
+
         {
             playerMoveX = false;
             playerMoveY = false;
@@ -35,14 +36,12 @@ namespace Grimthole.Screens
 
 
 
-
-
-
             //moves player at boundary cases
             if (target.SpritePosition.X < ScreenManager.Instance.Dimensions.Width / 2 - ScreenManager.Instance.TileSize) //horizontal case
             {
                 playerMoveX = true;
                 playerPosX = (-target.SpritePosition.X - (target.SpritePosition.Width) + ScreenManager.Instance.Dimensions.Width / 2) * -1;
+
             }
             if (target.SpritePosition.X > ScreenManager.Instance.TileSize * (width - 2) - (ScreenManager.Instance.Dimensions.Width / 2 - ScreenManager.Instance.TileSize)) //horizontal case
             {
@@ -56,6 +55,7 @@ namespace Grimthole.Screens
                 playerMoveY = true;
             }
             if (target.SpritePosition.Y > ScreenManager.Instance.TileSize * (height - 2) - (ScreenManager.Instance.Dimensions.Height / 2 - ScreenManager.Instance.TileSize)) //vertical case
+
             {
                 playerPosY = target.SpritePosition.Y - (ScreenManager.Instance.TileSize * (height - 2) - (ScreenManager.Instance.Dimensions.Height / 2 - ScreenManager.Instance.TileSize));
                 playerMoveY = true;
@@ -68,7 +68,6 @@ namespace Grimthole.Screens
             {
                 var playerMatrix = Matrix.CreateTranslation(playerPosX, playerPosY, 0);
                 playerTransform = playerMatrix;
-
             }
 
             //changes camera for non-player tiles when player is not moved
