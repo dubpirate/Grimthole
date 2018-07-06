@@ -18,14 +18,14 @@ namespace Grimthole.Core
 		readonly int level = 1;
         readonly int experience = 0;
         public Rectangle pos;
-        
 
-		public int Speed { get; }
+
+        public int Speed { get; }
 
 		// A list of all attacks the player knows.
         List<IAbilities> attacks = new List<IAbilities>();
         
-        public Player(Vector2 coords) : base("Sprites/Man2front", coords,
+        public Player(Vector2 coords) : base("Sprites/Player/Robe", coords,
             ScreenManager.Instance.TileSize, ScreenManager.Instance.TileSize)
         {
 			health = 100;
@@ -36,7 +36,8 @@ namespace Grimthole.Core
 
 		public override void Update(Rectangle windowDimensions, GameTime gt, ContentManager content)
 		{
-			if (SpritePosition.Left < 0)
+            currentAnimation = IdleFront;
+            if (SpritePosition.Left < 0)
             {
 				MoveCommand.MoveRight(this, Math.Abs(0 - SpritePosition.Left));
             }
@@ -55,15 +56,9 @@ namespace Grimthole.Core
             {
 				MoveCommand.MoveUp(this, Math.Abs(ScreenManager.Instance.TileSize * 40 - SpritePosition.Bottom));
             }
+            currentAnimation.Update(gt);
+            LoadContent(content);
+    }
 
-			LoadContent(content);
-		}
-
-        public void Draw(SpriteBatch spriteBatch, Camera camera)
-        {
-            spriteBatch.Begin(transformMatrix: camera.playerTransform);
-            spriteBatch.Draw(sprite, pos, Color.White);
-            spriteBatch.End();
-        }
-	}
 }
+
