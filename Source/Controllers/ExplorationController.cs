@@ -1,4 +1,6 @@
 ﻿using Grimthole.Core;
+using Grimthole.NPCs;
+using Grimthole.Screens;
 using Grimthole.Utils;
 
 using Microsoft.Xna.Framework;
@@ -12,9 +14,25 @@ namespace Grimthole.Controllers
 	public class ExplorationController : Controller
     {
         int delta = 10; //speed at which the player moves
-        public override void Update(Entity entity, GameTime gt, List<Entity> npcs, List<Tile> map, List<Vector2> points)
+        TextBubble textBubble;
+        Boolean talking = false;
+        Boolean doneTalking = true;
+        double timer = 0;
+
+        public override void Update(Entity entity, GameTime gt, List<Entity> npcs, List<Tile> map, List<Vector2> points, TextBubble textBubble)
         {
-			//checks if entity passed is player for movement checks
+            this.textBubble = textBubble;
+
+            if (timer > 0)
+            {
+                timer -= gt.ElapsedGameTime.TotalSeconds;
+            }
+            else
+            {
+                doneTalking = true;
+            }
+
+            //checks if entity passed is player for movement checks
             if (entity.GetType() == typeof(Player))
             {
                 UseControllerInput(entity, delta, npcs, map, points);
@@ -24,17 +42,28 @@ namespace Grimthole.Controllers
 
         }
 
+        public override void Draw(SpriteBatch spriteBatch, Camera camera)
+        {
+            if (talking)
+            {
+                textBubble.Draw(spriteBatch, camera);
+            }
+        }
+
         //checks if player is next to another npc for when the action key gets pressed
-        Boolean CheckSpriteCollision(Entity player, List<Entity> npcs, List<Tile> map)
+        int CheckSpriteCollision(Entity player, List<Entity> npcs, List<Tile> map)
         {
             for (int i = 0; i < npcs.Count; i++)
             {
                 if (player.SpritePosition.Left < npcs[i].SpritePosition.Right && player.SpritePosition.Top < npcs[i].SpritePosition.Bottom && player.SpritePosition.Right > npcs[i].SpritePosition.Left && player.SpritePosition.Bottom > npcs[i].SpritePosition.Top)
                 {
-                    return true;
+                    if (player.SpritePosition.Y > npcs[i].SpritePosition.Y - 32 && player.SpritePosition.Bottom < npcs[i].SpritePosition.Bottom + 32)
+                    {
+                        return i;
+                    }
                 }
             }
-            return false;
+            return 999999999;
         }
 
         //checks if there is a collisions to entities left
@@ -42,7 +71,7 @@ namespace Grimthole.Controllers
         {
             for (int i = 0; i < npcs.Count; i++)
             {
-                if (player.SpritePosition.Left < npcs[i].SpritePosition.Right && player.SpritePosition.Top < npcs[i].SpritePosition.Bottom && player.SpritePosition.Right > npcs[i].SpritePosition.Left && player.SpritePosition.Bottom > npcs[i].SpritePosition.Top)
+                if (player.SpritePosition.Left < npcs[i].SpritePosition.Right && player.SpritePosition.Top < npcs[i].SpritePosition.Bottom - delta && player.SpritePosition.Right > npcs[i].SpritePosition.Left && player.SpritePosition.Bottom > npcs[i].SpritePosition.Top + delta)
                 {
                     if (player.SpritePosition.Left > npcs[i].SpritePosition.Left)
                     {
@@ -72,7 +101,7 @@ namespace Grimthole.Controllers
         {
             for (int i = 0; i < npcs.Count; i++)
             {
-                if (player.SpritePosition.Left < npcs[i].SpritePosition.Right && player.SpritePosition.Top < npcs[i].SpritePosition.Bottom && player.SpritePosition.Right > npcs[i].SpritePosition.Left && player.SpritePosition.Bottom > npcs[i].SpritePosition.Top)
+                if (player.SpritePosition.Left < npcs[i].SpritePosition.Right && player.SpritePosition.Top < npcs[i].SpritePosition.Bottom - delta && player.SpritePosition.Right > npcs[i].SpritePosition.Left && player.SpritePosition.Bottom > npcs[i].SpritePosition.Top + delta)
                 {
                     if (player.SpritePosition.Right < npcs[i].SpritePosition.Right)
                     {
@@ -103,7 +132,7 @@ namespace Grimthole.Controllers
         {
             for (int i = 0; i < npcs.Count; i++)
             {
-                if (player.SpritePosition.Left < npcs[i].SpritePosition.Right && player.SpritePosition.Top < npcs[i].SpritePosition.Bottom && player.SpritePosition.Right > npcs[i].SpritePosition.Left && player.SpritePosition.Bottom > npcs[i].SpritePosition.Top)
+                if (player.SpritePosition.Left < npcs[i].SpritePosition.Right - delta && player.SpritePosition.Top < npcs[i].SpritePosition.Bottom + delta && player.SpritePosition.Right > npcs[i].SpritePosition.Left + delta && player.SpritePosition.Bottom > npcs[i].SpritePosition.Top)
                 {
                     if (player.SpritePosition.Top > npcs[i].SpritePosition.Top)
                     {
@@ -134,7 +163,7 @@ namespace Grimthole.Controllers
         {
             for (int i = 0; i < npcs.Count; i++)
             {
-                if (player.SpritePosition.Left < npcs[i].SpritePosition.Right && player.SpritePosition.Top < npcs[i].SpritePosition.Bottom && player.SpritePosition.Right > npcs[i].SpritePosition.Left && player.SpritePosition.Bottom > npcs[i].SpritePosition.Top)
+                if (player.SpritePosition.Left < npcs[i].SpritePosition.Right - delta && player.SpritePosition.Top < npcs[i].SpritePosition.Bottom && player.SpritePosition.Right > npcs[i].SpritePosition.Left + delta && player.SpritePosition.Bottom > npcs[i].SpritePosition.Top)
                 {
                     if (player.SpritePosition.Bottom < npcs[i].SpritePosition.Bottom)
                     {
@@ -193,29 +222,45 @@ namespace Grimthole.Controllers
 
         void UseKeyboardInputs(Entity entity, int delta, List<Entity> npcs, List<Tile> map, List<Vector2> points)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.D) && CheckRightCollision(entity, npcs, map, points))
+            if (Keyboard.GetState().IsKeyDown(Keys.D) && CheckRightCollision(entity, npcs, map, points) && !talking)
             {
                 MoveCommand.MoveRight(entity, delta);
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.A) && CheckLeftCollision(entity, npcs, map, points))
+            if (Keyboard.GetState().IsKeyDown(Keys.A) && CheckLeftCollision(entity, npcs, map, points) && !talking)
             {
                 MoveCommand.MoveLeft(entity, delta);
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.W) && CheckUpCollision(entity, npcs, map, points))
+            if (Keyboard.GetState().IsKeyDown(Keys.W) && CheckUpCollision(entity, npcs, map, points) && !talking)
             {
                 MoveCommand.MoveUp(entity, delta);
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.S) && CheckBottomCollision(entity, npcs, map, points))
+            if (Keyboard.GetState().IsKeyDown(Keys.S) && CheckBottomCollision(entity, npcs, map, points) && !talking)
             {
                 MoveCommand.MoveDown(entity, delta);
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.J) && CheckSpriteCollision(entity, npcs, map))
+            if (Keyboard.GetState().IsKeyDown(Keys.J) && CheckSpriteCollision(entity, npcs, map) != 999999999)
             {
-                
+                if (!talking && doneTalking)
+                {
+                    doneTalking = false;
+                    timer = 0.5;
+                    int index = CheckSpriteCollision(entity, npcs, map);
+                    textBubble.Text = ((Villager)npcs[index]).Response;
+                    textBubble.SpritePosition = new Rectangle(npcs[index].SpritePosition.X - 64, npcs[index].SpritePosition.Y - 64, 128, 64);
+                    talking = true;
+                }
+                else if(doneTalking)
+                {
+                    doneTalking = false;
+                    talking = false;
+                    timer = 0.5;
+                }
+
+
             }
         }
     }

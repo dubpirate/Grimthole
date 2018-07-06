@@ -17,6 +17,7 @@ namespace Grimthole.Screens
         Player player;
         int width = 60;
         int height = 40;
+        TextBubble textBubble;
 
         Tile Floor1;
         Tile RoadSd;
@@ -49,16 +50,26 @@ namespace Grimthole.Screens
 
             //Draws the player in the middle of the region
             player = new Player(new Vector2(1000, 1000));
-               
+            
+            textBubble = new TextBubble("pussy", new Vector2(500, 500));
 
             player.LoadContent(Content);
 
+            textBubble.LoadContent(Content);
 
             // Constructs All NPCs then iteratively loads their content.
-            Villager villager = new Villager(new Vector2(300,300));
-            Villager villager2 = new Villager(new Vector2(600, 600));
+            Villager villager = new Villager(new Vector2(500,700));
+            villager.Response = "I hate eating ass";
+            Villager villager2 = new Villager(new Vector2(900, 900));
+            villager2.Response = "I love eating ass";
+            Villager villager3 = new Villager(new Vector2(1050, 400));
+            villager3.Response = "Where am I?";
+            Villager villager4 = new Villager(new Vector2(1050, 700));
+            villager4.Response = "Call me Mr Ass";
             npcs.Add(villager);
             npcs.Add(villager2);
+            npcs.Add(villager3);
+            npcs.Add(villager4);
 
             foreach (Entity npc in npcs)
             {
@@ -73,18 +84,18 @@ namespace Grimthole.Screens
             RoadSd = new Tile(new Rectangle(new Point(32, 0), new Point(32, 32)));
             RoadUp = new Tile(new Rectangle(new Point(64, 32), new Point(32, 32)));
             RoadFk = new Tile(new Rectangle(new Point(64, 0), new Point(32, 32)));
-            Hou1p1 = new Tile(new Rectangle(new Point(96, 0), new Point(32, 32)));
-            Hou1p2 = new Tile(new Rectangle(new Point(128, 0), new Point(32, 32)));
-            Hou1p3 = new Tile(new Rectangle(new Point(162, 0), new Point(32, 32)));
-            Hou1p4 = new Tile(new Rectangle(new Point(96, 32), new Point(32, 32)));
-            Hou1p5 = new Tile(new Rectangle(new Point(128, 32), new Point(32, 32)));
-            Hou1p6 = new Tile(new Rectangle(new Point(162, 32), new Point(32, 32)));
-            WallBL = new Tile(new Rectangle(new Point(32, 64), new Point(32, 32)));
-            WallBR = new Tile(new Rectangle(new Point(64, 64), new Point(32, 32)));
+            Hou1p1 = new Tile(new Rectangle(new Point(96, 0), new Point(32, 32)), Tile.TileTypes.Collidable);
+            Hou1p2 = new Tile(new Rectangle(new Point(128, 0), new Point(32, 32)), Tile.TileTypes.Collidable);
+            Hou1p3 = new Tile(new Rectangle(new Point(162, 0), new Point(32, 32)), Tile.TileTypes.Collidable);
+            Hou1p4 = new Tile(new Rectangle(new Point(96, 32), new Point(32, 32)), Tile.TileTypes.Collidable);
+            Hou1p5 = new Tile(new Rectangle(new Point(128, 32), new Point(32, 32)), Tile.TileTypes.Collidable);
+            Hou1p6 = new Tile(new Rectangle(new Point(162, 32), new Point(32, 32)), Tile.TileTypes.Collidable);
+            WallBL = new Tile(new Rectangle(new Point(32, 64), new Point(32, 32)), Tile.TileTypes.Collidable);
+            WallBR = new Tile(new Rectangle(new Point(64, 64), new Point(32, 32)), Tile.TileTypes.Collidable);
             WallLt = new Tile(new Rectangle(new Point(96, 64), new Point(32, 32)), Tile.TileTypes.Collidable);
             WallRt = new Tile(new Rectangle(new Point(128, 64), new Point(32, 32)), Tile.TileTypes.Collidable);
-            WallTL = new Tile(new Rectangle(new Point(160, 64), new Point(32, 32)));
-            WallTR = new Tile(new Rectangle(new Point(192, 64), new Point(32, 32)));
+            WallTL = new Tile(new Rectangle(new Point(160, 64), new Point(32, 32)), Tile.TileTypes.Collidable);
+            WallTR = new Tile(new Rectangle(new Point(192, 64), new Point(32, 32)), Tile.TileTypes.Collidable);
             WallTp = new Tile(new Rectangle(new Point(0, 64), new Point(32, 32)), Tile.TileTypes.Collidable);
             WallBt = new Tile(new Rectangle(new Point(224, 64), new Point(32, 32)), Tile.TileTypes.Collidable);
 
@@ -179,7 +190,7 @@ namespace Grimthole.Screens
                 npc.Update(ScreenManager.Instance.Dimensions, gameTime, Content);
             }
 
-            controller.Update(player, gameTime, npcs, map, points);
+            controller.Update(player, gameTime, npcs, map, points, textBubble);
             player.Update(ScreenManager.Instance.Dimensions, gameTime, Content);
             camera.Follow(player, width, height);
         }
@@ -206,6 +217,7 @@ namespace Grimthole.Screens
 
             player.Draw(spriteBatch, camera);
 
+            controller.Draw(spriteBatch, camera);
 
         }
     }

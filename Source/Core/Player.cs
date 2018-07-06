@@ -25,7 +25,7 @@ namespace Grimthole.Core
 		// A list of all attacks the player knows.
         List<IAbilities> attacks = new List<IAbilities>();
         
-        public Player(Vector2 coords) : base("Sprites/Man2front", coords,
+        public Player(Vector2 coords) : base("Sprites/Player/Robe", coords,
             ScreenManager.Instance.TileSize, ScreenManager.Instance.TileSize)
         {
 			health = 100;
@@ -36,7 +36,8 @@ namespace Grimthole.Core
 
 		public override void Update(Rectangle windowDimensions, GameTime gt, ContentManager content)
 		{
-			if (SpritePosition.Left < 0)
+            currentAnimation = IdleFront;
+            if (SpritePosition.Left < 0)
             {
 				MoveCommand.MoveRight(this, Math.Abs(0 - SpritePosition.Left));
             }
@@ -55,9 +56,10 @@ namespace Grimthole.Core
             {
 				MoveCommand.MoveUp(this, Math.Abs(ScreenManager.Instance.TileSize * 40 - SpritePosition.Bottom));
             }
-
-			LoadContent(content);
+            currentAnimation.Update(gt);
+            LoadContent(content);
 		}
+
 
 
     }
