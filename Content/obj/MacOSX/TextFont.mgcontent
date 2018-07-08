@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SourceFile>C:/Users/Curti/Desktop/Grimthole/Grimthole/Content/TextFont.spritefont</SourceFile>
+  <SourceTime>2018-07-06T07:26:46+12:00</SourceTime>
+  <DestFile>C:/Users/Curti/Desktop/Grimthole/Grimthole/Content/bin/MacOSX/TextFont.xnb</DestFile>
+  <DestTime>2018-07-07T19:14:51.203763+12:00</DestTime>
+  <Importer>FontDescriptionImporter</Importer>
+  <ImporterTime>2017-03-02T04:05:36+13:00</ImporterTime>
+  <Processor>FontDescriptionProcessor</Processor>
+  <ProcessorTime>2017-03-02T04:05:36+13:00</ProcessorTime>
+  <Parameters>
+    <Key>PremultiplyAlpha</Key>
+    <Value>True</Value>
+  </Parameters>
+  <Parameters>
+    <Key>TextureFormat</Key>
+    <Value>Compressed</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>

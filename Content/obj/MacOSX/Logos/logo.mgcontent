@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>/Users/w 1/Documents/Tech Stuff/MonoGame/Grimthole/Grimthole/Content/Logos/logo.png</SourceFile>
-  <SourceTime>2018-05-28T13:11:17+12:00</SourceTime>
-  <DestFile>/Users/w 1/Documents/Tech Stuff/MonoGame/Grimthole/Grimthole/Content/bin/MacOSX/Logos/logo.xnb</DestFile>
-  <DestTime>2018-05-28T15:49:59+12:00</DestTime>
+  <SourceFile>C:/Users/Curti/Desktop/Grimthole/Grimthole/Content/Logos/logo.png</SourceFile>
+  <SourceTime>2018-07-06T07:26:46+12:00</SourceTime>
+  <DestFile>C:/Users/Curti/Desktop/Grimthole/Grimthole/Content/bin/MacOSX/Logos/logo.xnb</DestFile>
+  <DestTime>2018-07-07T19:14:50.6690045+12:00</DestTime>
   <Importer>TextureImporter</Importer>
-  <ImporterTime>2017-03-02T04:06:24+13:00</ImporterTime>
+  <ImporterTime>2017-03-02T04:05:36+13:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
-  <ProcessorTime>2017-03-02T04:06:24+13:00</ProcessorTime>
+  <ProcessorTime>2017-03-02T04:05:36+13:00</ProcessorTime>
   <Parameters>
     <Key>ColorKeyColor</Key>
     <Value>255,0,255,255</Value>
