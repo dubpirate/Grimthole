@@ -33,5 +33,8 @@ C:\Users\Curti\Desktop\Grimthole\Grimthole\obj\x86\Debug\Grimthole.csproj.CoreCo
 C:\Users\Curti\Desktop\Grimthole\Grimthole\obj\x86\Debug\Grimthole.csproj.CopyComplete
 C:\Users\Curti\Desktop\Grimthole\Grimthole\obj\x86\Debug\Grimthole.exe
 C:\Users\Curti\Desktop\Grimthole\Grimthole\obj\x86\Debug\Grimthole.pdb
-C:\Users\Curti\Desktop\Grimthole\Grimthole\bin\Windows\x86\Debug\Content\cave2.xnb
 C:\Users\Curti\Desktop\Grimthole\Grimthole\bin\Windows\x86\Debug\Content\Backgrounds\cave3.xnb
+C:\Users\Curti\Desktop\Grimthole\Grimthole\bin\Windows\x86\Debug\Content\Sprites\Player\ni.xnb
+C:\Users\Curti\Desktop\Grimthole\Grimthole\bin\Windows\x86\Debug\Content\Sprites\Player\Robe.xnb
+C:\Users\Curti\Desktop\Grimthole\Grimthole\bin\Windows\x86\Debug\Content\TextBubble.xnb
+C:\Users\Curti\Desktop\Grimthole\Grimthole\bin\Windows\x86\Debug\Content\TextFont.xnb

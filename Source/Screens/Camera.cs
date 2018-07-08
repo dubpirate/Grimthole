@@ -10,12 +10,13 @@ namespace Grimthole.Screens
     {
         public Matrix Transform { get; private set; }
         public Matrix playerTransform { get; private set; }
-        float posX = 0 ;
-        float posY = 0 ;
+        float posX = 0;
+        float posY = 0;
         Boolean playerMoveX;
         Boolean playerMoveY;
 
-        public void Follow (Player target, int width, int height)
+        public void Follow(Player target, int width, int height)
+
         {
             playerMoveX = false;
             playerMoveY = false;
@@ -32,9 +33,6 @@ namespace Grimthole.Screens
                 GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 2 - 80,
                 0);
 
-            
-
-
 
 
 
@@ -42,7 +40,8 @@ namespace Grimthole.Screens
             if (target.SpritePosition.X < ScreenManager.Instance.Dimensions.Width / 2 - ScreenManager.Instance.TileSize) //horizontal case
             {
                 playerMoveX = true;
-                playerPosX = (-target.SpritePosition.X - (target.SpritePosition.Width) + ScreenManager.Instance.Dimensions.Width / 2) *-1;
+                playerPosX = (-target.SpritePosition.X - (target.SpritePosition.Width) + ScreenManager.Instance.Dimensions.Width / 2) * -1;
+
             }
             if (target.SpritePosition.X > ScreenManager.Instance.TileSize * (width - 2) - (ScreenManager.Instance.Dimensions.Width / 2 - ScreenManager.Instance.TileSize)) //horizontal case
             {
@@ -52,10 +51,11 @@ namespace Grimthole.Screens
 
             if (target.SpritePosition.Y < ScreenManager.Instance.Dimensions.Height / 2 - ScreenManager.Instance.TileSize) //vertical case
             {
-                playerPosY = (-target.SpritePosition.Y - (target.SpritePosition.Height) + ScreenManager.Instance.Dimensions.Height / 2) *-1;
+                playerPosY = (-target.SpritePosition.Y - (target.SpritePosition.Height) + ScreenManager.Instance.Dimensions.Height / 2) * -1;
                 playerMoveY = true;
             }
-            if (target.SpritePosition.Y > ScreenManager.Instance.TileSize * (height-2) - (ScreenManager.Instance.Dimensions.Height / 2 - ScreenManager.Instance.TileSize)) //vertical case
+            if (target.SpritePosition.Y > ScreenManager.Instance.TileSize * (height - 2) - (ScreenManager.Instance.Dimensions.Height / 2 - ScreenManager.Instance.TileSize)) //vertical case
+
             {
                 playerPosY = target.SpritePosition.Y - (ScreenManager.Instance.TileSize * (height - 2) - (ScreenManager.Instance.Dimensions.Height / 2 - ScreenManager.Instance.TileSize));
                 playerMoveY = true;
@@ -68,7 +68,6 @@ namespace Grimthole.Screens
             {
                 var playerMatrix = Matrix.CreateTranslation(playerPosX, playerPosY, 0);
                 playerTransform = playerMatrix;
-                
             }
 
             //changes camera for non-player tiles when player is not moved

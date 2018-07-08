@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{88FF61E7-2DE9-45E6-B48C-9D4C3B50C320}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Grimthole</RootNamespace>
+    <AssemblyName>Grimthole</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MonoGamePlatform>Windows</MonoGamePlatform>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\$(MonoGamePlatform)\$(Platform)\$(Configuration)\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\$(MonoGamePlatform)\$(Platform)\$(Configuration)\</OutputPath>
+    <DefineConstants>TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Abilities\Attack.cs" />
+    <Compile Include="Abilities\Kick.cs" />
+    <Compile Include="Abilities\Punch.cs" />
+    <Compile Include="Controllers\Controller.cs" />
+    <Compile Include="Controllers\ExplorationController.cs" />
+    <Compile Include="Core\Animation.cs" />
+    <Compile Include="Core\AnimationFrame.cs" />
+    <Compile Include="Core\Grimthole.cs" />
+    <Compile Include="Core\Inventory.cs" />
+    <Compile Include="Core\Main.cs" />
+    <Compile Include="Core\Player.cs" />
+    <Compile Include="Core\Tile.cs" />
+    <Compile Include="Interfaces\IAbilities.cs" />
+    <Compile Include="Interfaces\ISprite.cs" />
+    <Compile Include="Items\Item.cs" />
+    <Compile Include="Items\Weapon.cs" />
+    <Compile Include="NPCs\Bob.cs" />
+    <Compile Include="NPCs\Villager.cs" />
+    <Compile Include="obj\x86\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\x86\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\x86\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Screens\Camera.cs" />
+    <Compile Include="Screens\ShopScreen.cs" />
+    <Compile Include="Screens\ScreenManager.cs" />
+    <Compile Include="Screens\SplashScreen.cs" />
+    <Compile Include="Screens\VillageScreen.cs" />
+    <Compile Include="Utils\Entity.cs" />
+    <Compile Include="Utils\GameScreen.cs" />
+    <Compile Include="Utils\MoveCommand.cs" />
+    <Compile Include="Utils\TextBubble.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="MonoGame.Framework">
+      <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.manifest" />
+    <None Include="bin\Windows\x86\Debug\Content\Backgrounds\cave3.xnb" />
+    <None Include="bin\Windows\x86\Debug\Content\Backgrounds\Grass-1.xnb" />
+    <None Include="bin\Windows\x86\Debug\Content\Backgrounds\Grass\Grass-1.xnb" />
+    <None Include="bin\Windows\x86\Debug\Content\Backgrounds\Grass\Grass-2.xnb" />
+    <None Include="bin\Windows\x86\Debug\Content\Backgrounds\Grass\Grass-3.xnb" />
+    <None Include="bin\Windows\x86\Debug\Content\Backgrounds\Grass\Grass-4.xnb" />
+    <None Include="bin\Windows\x86\Debug\Content\Backgrounds\Grass\Grass-5.xnb" />
+    <None Include="bin\Windows\x86\Debug\Content\cave2.xnb" />
+    <None Include="bin\Windows\x86\Debug\Content\Logos\logo.xnb" />
+    <None Include="bin\Windows\x86\Debug\Content\Sprites\Man2back.xnb" />
+    <None Include="bin\Windows\x86\Debug\Content\Sprites\Man2front.xnb" />
+    <None Include="bin\Windows\x86\Debug\Content\Sprites\Man2left.xnb" />
+    <None Include="bin\Windows\x86\Debug\Content\Sprites\Man2right.xnb" />
+    <None Include="Content\bin\Windows\Backgrounds\cave3.xnb" />
+    <None Include="Content\bin\Windows\Backgrounds\Grass-1.xnb" />
+    <None Include="Content\bin\Windows\Backgrounds\Grass\Grass-1.xnb" />
+    <None Include="Content\bin\Windows\Backgrounds\Grass\Grass-2.xnb" />
+    <None Include="Content\bin\Windows\Backgrounds\Grass\Grass-3.xnb" />
+    <None Include="Content\bin\Windows\Backgrounds\Grass\Grass-4.xnb" />
+    <None Include="Content\bin\Windows\Backgrounds\Grass\Grass-5.xnb" />
+    <None Include="Content\bin\Windows\cave2.xnb" />
+    <None Include="Content\bin\Windows\Logos\logo.xnb" />
+    <None Include="Content\bin\Windows\Sprites\Man2back.xnb" />
+    <None Include="Content\bin\Windows\Sprites\Man2front.xnb" />
+    <None Include="Content\bin\Windows\Sprites\Man2left.xnb" />
+    <None Include="Content\bin\Windows\Sprites\Man2right.xnb" />
+    <None Include="Content\bin\Windows\Sprites\Player\ni.xnb" />
+    <None Include="Content\bin\Windows\Sprites\Player\Robe.xnb" />
+    <None Include="Content\bin\Windows\TextBubble.xnb" />
+    <None Include="Content\bin\Windows\TextFont.xnb" />
+    <None Include="Content\obj\DesktopGL\Logos\logo.mgcontent" />
+    <None Include="Content\obj\MacOSX\Logos\logo.mgcontent" />
+    <None Include="Content\obj\Windows\.mgcontent" />
+    <None Include="Content\obj\Windows\Backgrounds\cave3.mgcontent" />
+    <None Include="Content\obj\Windows\Backgrounds\Grass-1.mgcontent" />
+    <None Include="Content\obj\Windows\Backgrounds\Grass\Grass-1.mgcontent" />
+    <None Include="Content\obj\Windows\Backgrounds\Grass\Grass-2.mgcontent" />
+    <None Include="Content\obj\Windows\Backgrounds\Grass\Grass-3.mgcontent" />
+    <None Include="Content\obj\Windows\Backgrounds\Grass\Grass-4.mgcontent" />
+    <None Include="Content\obj\Windows\Backgrounds\Grass\Grass-5.mgcontent" />
+    <None Include="Content\obj\Windows\cave2.mgcontent" />
+    <None Include="Content\obj\Windows\Logos\logo.mgcontent" />
+    <None Include="Content\obj\Windows\Sprites\Man2back.mgcontent" />
+    <None Include="Content\obj\Windows\Sprites\Man2front.mgcontent" />
+    <None Include="Content\obj\Windows\Sprites\Man2left.mgcontent" />
+    <None Include="Content\obj\Windows\Sprites\Man2right.mgcontent" />
+    <None Include="Content\obj\Windows\Sprites\Player\ni.mgcontent" />
+    <None Include="Content\obj\Windows\Sprites\Player\Robe.mgcontent" />
+    <None Include="Content\obj\Windows\TextBubble.mgcontent" />
+    <None Include="Content\obj\Windows\TextFont.mgcontent" />
+    <None Include="Content\TextFont.spritefont" />
+    <None Include="obj\x86\Debug\build.force" />
+    <None Include="obj\x86\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\x86\Debug\Grimthole.csproj.CopyComplete" />
+    <None Include="obj\x86\Debug\Grimthole.csproj.CoreCompileInputs.cache" />
+    <None Include="obj\x86\Debug\Grimthole.csprojAssemblyReference.cache" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Windows\x86\Release\" />
+    <Folder Include="obj\x86\Debug\TempPE\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Windows\x86\Debug\Grimthole.exe" />
+    <Content Include="bin\Windows\x86\Debug\Grimthole.pdb" />
+    <Content Include="bin\Windows\x86\Debug\MonoGame.Framework.dll" />
+    <Content Include="bin\Windows\x86\Debug\MonoGame.Framework.xml" />
+    <Content Include="bin\Windows\x86\Debug\SharpDX.Direct2D1.dll" />
+    <Content Include="bin\Windows\x86\Debug\SharpDX.Direct2D1.xml" />
+    <Content Include="bin\Windows\x86\Debug\SharpDX.Direct3D11.dll" />
+    <Content Include="bin\Windows\x86\Debug\SharpDX.Direct3D11.xml" />
+    <Content Include="bin\Windows\x86\Debug\SharpDX.Direct3D9.dll" />
+    <Content Include="bin\Windows\x86\Debug\SharpDX.Direct3D9.xml" />
+    <Content Include="bin\Windows\x86\Debug\SharpDX.dll" />
+    <Content Include="bin\Windows\x86\Debug\SharpDX.DXGI.dll" />
+    <Content Include="bin\Windows\x86\Debug\SharpDX.DXGI.xml" />
+    <Content Include="bin\Windows\x86\Debug\SharpDX.MediaFoundation.dll" />
+    <Content Include="bin\Windows\x86\Debug\SharpDX.MediaFoundation.xml" />
+    <Content Include="bin\Windows\x86\Debug\SharpDX.XAudio2.dll" />
+    <Content Include="bin\Windows\x86\Debug\SharpDX.XAudio2.xml" />
+    <Content Include="bin\Windows\x86\Debug\SharpDX.XInput.dll" />
+    <Content Include="bin\Windows\x86\Debug\SharpDX.XInput.xml" />
+    <Content Include="bin\Windows\x86\Debug\SharpDX.xml" />
+    <Content Include="Content\Backgrounds\cave3.png" />
+    <Content Include="Content\Backgrounds\Grass-1.png" />
+    <Content Include="Content\Backgrounds\Grass\Grass-1.png" />
+    <Content Include="Content\Backgrounds\Grass\Grass-2.png" />
+    <Content Include="Content\Backgrounds\Grass\Grass-3.png" />
+    <Content Include="Content\Backgrounds\Grass\Grass-4.png" />
+    <Content Include="Content\Backgrounds\Grass\Grass-5.png" />
+    <Content Include="Content\cave2.png" />
+    <Content Include="Content\Logos\logo.png" />
+    <Content Include="Content\Sprites\Backgrounds\Grass\Grass-1.png" />
+    <Content Include="Content\Sprites\Backgrounds\Grass\Grass-2.png" />
+    <Content Include="Content\Sprites\Backgrounds\Grass\Grass-3.png" />
+    <Content Include="Content\Sprites\Backgrounds\Grass\Grass-4.png" />
+    <Content Include="Content\Sprites\Backgrounds\Grass\Grass-5.png" />
+    <Content Include="Content\Sprites\Man2back.png" />
+    <Content Include="Content\Sprites\Man2front.png" />
+    <Content Include="Content\Sprites\Man2left.png" />
+    <Content Include="Content\Sprites\Man2right.png" />
+    <Content Include="Content\Sprites\Player\ni.png" />
+    <Content Include="Content\Sprites\Player\Robe.png" />
+    <Content Include="Content\TextBubble.png" />
+    <Content Include="obj\x86\Debug\Grimthole.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\x86\Debug\Grimthole.exe" />
+    <Content Include="obj\x86\Debug\Grimthole.pdb" />
+  </ItemGroup>
+  <ItemGroup>
+    <MonoGameContentReference Include="Content\Content.mgcb" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
