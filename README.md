@@ -3,6 +3,7 @@ An on going game made by M1 team.
 
 ## Meat the Team
  - Bradley <3 Peary, Artist
+ - Rachel Gale, Writer
  - Curtis Blackman, Engineer
  - Devon Kennedy, Enginner
  - William Torkington, Engineer
