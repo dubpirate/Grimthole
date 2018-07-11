@@ -76,25 +76,12 @@ namespace Grimthole.Screens
                     spriteBatch.Draw(buttonNotSelected, buttonTalkPosition, Color.White);
                     spriteBatch.Draw(buttonSelected, buttonShopPosition, Color.White);
                 }
-
                 spriteBatch.DrawString(font72, buttonTalk, new Vector2(380, 740), Color.Black);
                 spriteBatch.DrawString(font72, buttonShop, new Vector2(1170, 740), Color.Black);
-
-                for (var i = 0; i < ScreenManager.Instance.Dimensions.Width; i += ScreenManager.Instance.TileSize) //draws cave background behind
-                {
-                    for (var j = 231; j < 550; j += ScreenManager.Instance.TileSize)
-                    {
-                        spriteBatch.Draw(Content.Load<Texture2D>("Backgrounds/cave3"), new Vector2(i, j), floor.getSourceRectangle(), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
-                    }
-                }
-
-
-
-                villager.changeHue(Content, villagerTexture); //draws Pete the potion seller
-                spriteBatch.Draw(villagerTexture, new Rectangle(new Point(1100, 300), new Point(200, 200)), Color.White);
                 spriteBatch.End();
-                villager.revertHue(Content, villagerTexture);
 
+                drawBackground(spriteBatch);
+                drawVillager(spriteBatch);
                 drawPlayer(spriteBatch,gameTime);
                 
             } else if (chosen == 1)
@@ -159,6 +146,28 @@ namespace Grimthole.Screens
             spriteBatch.Draw(player.getCharacterSheetTexture(), new Rectangle(new Point(500, 300), new Point(200, 200)), sourceRectangle, Color.White);
             spriteBatch.End();
             player.currentAnimation.Update(gameTime);
+        }
+
+        public void drawBackground(SpriteBatch spriteBatch) //draws cave background behind
+        {
+            spriteBatch.Begin();
+            for (var i = 0; i < ScreenManager.Instance.Dimensions.Width; i += ScreenManager.Instance.TileSize) 
+            {
+                for (var j = 231; j < 550; j += ScreenManager.Instance.TileSize)
+                {
+                    spriteBatch.Draw(Content.Load<Texture2D>("Backgrounds/cave3"), new Vector2(i, j), floor.getSourceRectangle(), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
+                }
+            }
+            spriteBatch.End();
+        }
+
+        public void drawVillager(SpriteBatch spriteBatch) //draws Pete the potion seller
+        {
+            spriteBatch.Begin();
+            villager.changeHue(Content, villagerTexture); 
+            spriteBatch.Draw(villagerTexture, new Rectangle(new Point(1100, 300), new Point(200, 200)), Color.White);
+            spriteBatch.End();
+            villager.revertHue(Content, villagerTexture);
         }
     }
 }
