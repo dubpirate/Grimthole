@@ -18,7 +18,9 @@ namespace Grimthole.Screens
         int width = 60;
         int height = 40;
         TextBubble textBubble;
-        
+        Villager potionSeller;
+
+
 
         Tile Floor1;
         Tile RoadSd;
@@ -70,7 +72,7 @@ namespace Grimthole.Screens
 
 
 
-            Villager potionSeller = new Villager(new Vector2(2000, 1000), "Sprites/Man2front");
+            potionSeller = new Villager(new Vector2(2000, 1000), "Sprites/Man2front");
             potionSeller.Response = "You shouldn't be \nseeing this \nmessage";
 
             npcs.Add(villager);
@@ -216,9 +218,9 @@ namespace Grimthole.Screens
             {
                 npc.Draw(spriteBatch, camera);
             }
-            ((Villager)npcs[npcs.Count - 1]).changeHue(Content);
+            ((Villager)npcs[npcs.Count - 1]).changeHue(Content, Content.Load<Texture2D>(potionSeller.texture));
             npcs[npcs.Count - 1].Draw(spriteBatch, camera);
-            ((Villager)npcs[npcs.Count - 1]).revertHue(Content);
+            ((Villager)npcs[npcs.Count - 1]).revertHue(Content, Content.Load<Texture2D>(potionSeller.texture));
 
             player.Draw(spriteBatch, camera);
             
@@ -228,7 +230,7 @@ namespace Grimthole.Screens
         public override void Save()
         {
             loadedBefore = true;
-            ScreenManager.Instance.ChangeScreen(new ShopScreen(this));
+            ScreenManager.Instance.ChangeScreen(new ShopScreen(this, player, potionSeller,Floor1));
         }
     }
 }

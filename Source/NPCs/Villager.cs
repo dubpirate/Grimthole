@@ -10,7 +10,7 @@ namespace Grimthole.NPCs
     public class Villager : Entity
     {
         public string Response { get; set; }
-        private string texture = "Sprites/Man2front";
+        public string texture = "Sprites/Man2front";
 
         public Villager(Vector2 coords, string texture) 
             : base(texture, coords, ScreenManager.Instance.TileSize, ScreenManager.Instance.TileSize)
@@ -24,9 +24,8 @@ namespace Grimthole.NPCs
             //throw new NotImplementedException();
         }
 
-        public void changeHue(ContentManager content)
+        public void changeHue(ContentManager content, Texture2D tex)
         {
-            Texture2D tex = content.Load<Texture2D>(texture);
             Color[] tcolor = new Color[tex.Width * tex.Height];
             tex.GetData<Color>(tcolor);
 
@@ -42,9 +41,8 @@ namespace Grimthole.NPCs
             tex.SetData<Color>(tcolor);
         }
 
-        public void revertHue(ContentManager content)
+        public void revertHue(ContentManager content, Texture2D tex)
         {
-            Texture2D tex = content.Load<Texture2D>(texture);
             Color[] tcolor = new Color[tex.Width * tex.Height];
             tex.GetData<Color>(tcolor);
 

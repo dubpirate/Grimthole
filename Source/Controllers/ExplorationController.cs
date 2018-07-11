@@ -243,7 +243,7 @@ namespace Grimthole.Controllers
             if (Keyboard.GetState().IsKeyDown(Keys.S) && CheckBottomCollision(entity, npcs, map, points) && !talking)
             {
                 MoveCommand.MoveDown(entity, delta);
-                
+
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.J) && CheckSpriteCollision(entity, npcs, map) != 999999999)

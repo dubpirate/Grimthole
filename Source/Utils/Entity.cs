@@ -98,5 +98,17 @@ namespace Grimthole.Utils
             spriteBatch.Draw(characterSheetTexture, SpritePosition, sourceRectangle, Color.White);
             spriteBatch.End();
         }
+
+
+
+        public Texture2D getCharacterSheetTexture()
+        {
+            return characterSheetTexture;
+        }
+
+        public Texture2D getCharacterSilhouette()
+        {
+            return characterSilhouette;
+        }
     }
 }

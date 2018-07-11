@@ -38,3 +38,7 @@ C:\Users\Curti\Desktop\Grimthole\Grimthole\bin\Windows\x86\Debug\Content\Sprites
 C:\Users\Curti\Desktop\Grimthole\Grimthole\bin\Windows\x86\Debug\Content\Sprites\Player\Robe.xnb
 C:\Users\Curti\Desktop\Grimthole\Grimthole\bin\Windows\x86\Debug\Content\TextBubble.xnb
 C:\Users\Curti\Desktop\Grimthole\Grimthole\bin\Windows\x86\Debug\Content\TextFont.xnb
+C:\Users\Curti\Desktop\Grimthole\Grimthole\bin\Windows\x86\Debug\Content\Backgrounds\Shop.xnb
+C:\Users\Curti\Desktop\Grimthole\Grimthole\bin\Windows\x86\Debug\Content\TextFont72.xnb
+C:\Users\Curti\Desktop\Grimthole\Grimthole\bin\Windows\x86\Debug\Content\Interaction\ButtonNotSelected.xnb
+C:\Users\Curti\Desktop\Grimthole\Grimthole\bin\Windows\x86\Debug\Content\Interaction\ButtonSelected.xnb
