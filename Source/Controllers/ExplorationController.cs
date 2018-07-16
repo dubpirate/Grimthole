@@ -1,4 +1,4 @@
-using Grimthole.Core;
+﻿using Grimthole.Core;
 using Grimthole.NPCs;
 using Grimthole.Screens;
 using Grimthole.Utils;
@@ -17,26 +17,83 @@ namespace Grimthole.Controllers
         TextBubble textBubble;
         Boolean talking = false;
         Boolean doneTalking = true;
-        double timer = 0;
+
+        double timer;
+
+        Array values = Enum.GetValues(typeof(Direction));
 
         public override void Update(Entity entity, GameTime gt, List<Entity> npcs, List<Tile> map, List<Vector2> points, TextBubble textBubble)
         {
-            this.textBubble = textBubble;
-
-            if (timer > 0)
-            {
-                timer -= gt.ElapsedGameTime.TotalSeconds;
-            }
-            else
-            {
-                doneTalking = true;
-            }
 
             //checks if entity passed is player for movement checks
             if (entity.GetType() == typeof(Player))
             {
+                this.textBubble = textBubble;
+
+                if (timer > 0)
+                {
+                    timer -= gt.ElapsedGameTime.TotalSeconds;
+                }
+                else
+                {
+                    doneTalking = true;
+                }
                 UseControllerInput(entity, delta, npcs, map, points);
                 UseKeyboardInputs(entity, delta, npcs, map, points);
+            }
+            else
+            {
+                int delta = (int)(gt.ElapsedGameTime.TotalMilliseconds * 0.2);
+                if (((Villager)entity).npcTimer > 0)
+                {
+                    Console.WriteLine(((Villager)entity).Direction);
+                    ((Villager)entity).npcTimer -= gt.ElapsedGameTime.TotalSeconds;
+                    switch (((Villager)entity).Direction)
+                    {
+                        case Direction.Up:
+                            //if (CheckUpCollision(sprites[0].SpriteDimensions))
+                            // {
+                            MoveCommand.MoveUp(entity, delta);
+                            // }
+                            break;
+                        case Direction.Down:
+                            // if (CheckBottomCollision(sprites[0].SpriteDimensions))
+                            //{
+                            MoveCommand.MoveDown(entity, delta);
+                            //}
+                            break;
+                        case Direction.Left:
+                            //if (CheckLeftCollision(sprites[0].SpriteDimensions))
+                            //{
+                            MoveCommand.MoveLeft(entity, delta);
+                            //}
+                            break;
+                        case Direction.Right:
+                            // if (CheckRightCollision(sprites[0].SpriteDimensions))
+                            //{
+                            MoveCommand.MoveRight(entity, delta);
+                            // }
+                            break;
+
+                    }
+
+                }
+                else
+                {
+                    if (((Villager)entity).waitTime > 0)
+                    {
+                        ((Villager)entity).waitTime -= gt.ElapsedGameTime.TotalSeconds;
+                    }
+                    else
+                    {
+                        ((Villager)entity).npcTimer = 1;
+                        Random random = new Random();
+                        ((Villager)entity).Direction = (Direction)values.GetValue(random.Next(values.Length));
+                        Random rnd = new Random();
+                        double number = rnd.Next(0, 2);
+                        ((Villager)entity).waitTime = number;
+                    }
+                }
             }
             
 
