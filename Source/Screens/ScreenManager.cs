@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 using Grimthole.Screens;
+using System.Collections.Generic;
 
 namespace Grimthole.Utils
 {
@@ -18,7 +19,7 @@ namespace Grimthole.Utils
         public readonly int TileSize = 64;
         public Rectangle Dimensions { get; private set; }
         public ContentManager Content { get; private set; }
-        GameScreen currentScreen;      
+        GameScreen currentScreen;
 
         public static ScreenManager Instance
         {
@@ -42,6 +43,7 @@ namespace Grimthole.Utils
                 GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width - 100,
                 GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - 100
             );
+
         }
 
         public void Initialise()
@@ -52,7 +54,14 @@ namespace Grimthole.Utils
         public void ChangeScreen(GameScreen gameScreen)
         {
             currentScreen = gameScreen;
-            currentScreen.LoadContent();
+            if (!currentScreen.loadedBefore)
+            {
+                currentScreen.LoadContent();
+            } else
+            {
+                currentScreen.changeScreenTimer = 0.2;
+            }
+            
         }
 
         public void LoadContent(ContentManager content)

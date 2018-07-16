@@ -18,6 +18,9 @@ namespace Grimthole.Screens
         int width = 60;
         int height = 40;
         TextBubble textBubble;
+        Villager potionSeller;
+
+
 
         Tile Floor1;
         Tile RoadSd;
@@ -58,18 +61,25 @@ namespace Grimthole.Screens
             textBubble.LoadContent(Content);
 
             // Constructs All NPCs then iteratively loads their content.
-            Villager villager = new Villager(new Vector2(500,700));
+            Villager villager = new Villager(new Vector2(500,700), "Sprites/Man2front");
             villager.Response = "I hate eating ass";
-            Villager villager2 = new Villager(new Vector2(900, 900));
+            Villager villager2 = new Villager(new Vector2(900, 900), "Sprites/Man2front");
             villager2.Response = "I love eating ass";
-            Villager villager3 = new Villager(new Vector2(1050, 400));
+            Villager villager3 = new Villager(new Vector2(1050, 400), "Sprites/Man2front");
             villager3.Response = "Where am I?";
-            Villager villager4 = new Villager(new Vector2(1050, 700));
+            Villager villager4 = new Villager(new Vector2(1050, 700), "Sprites/Man2front");
             villager4.Response = "Call me Mr Ass";
+
+
+
+            potionSeller = new Villager(new Vector2(2000, 1000), "Sprites/Man2front");
+            potionSeller.Response = "You shouldn't be \nseeing this \nmessage";
+
             npcs.Add(villager);
             npcs.Add(villager2);
             npcs.Add(villager3);
             npcs.Add(villager4);
+            npcs.Add(potionSeller);
 
             foreach (Entity npc in npcs)
             {
@@ -184,8 +194,9 @@ namespace Grimthole.Screens
             foreach (Entity npc in npcs)
             {
                 npc.Update(ScreenManager.Instance.Dimensions, gameTime, Content);
+                controller.Update(npc, gameTime, npcs, map, points, textBubble, this);
             }
-            controller.Update(player, gameTime, npcs, map, points, textBubble);
+            controller.Update(player, gameTime, npcs, map, points, textBubble, this);
 
             player.Update(ScreenManager.Instance.Dimensions, gameTime, Content);
             camera.Follow(player, width, height);
@@ -208,10 +219,19 @@ namespace Grimthole.Screens
             {
                 npc.Draw(spriteBatch, camera);
             }
+            ((Villager)npcs[npcs.Count - 1]).changeHue(Content, Content.Load<Texture2D>(potionSeller.texture));
+            npcs[npcs.Count - 1].Draw(spriteBatch, camera);
+            ((Villager)npcs[npcs.Count - 1]).revertHue(Content, Content.Load<Texture2D>(potionSeller.texture));
 
             player.Draw(spriteBatch, camera);
             
             controller.Draw(spriteBatch, camera);
+        }
+
+        public override void Save()
+        {
+            loadedBefore = true;
+            ScreenManager.Instance.ChangeScreen(new ShopScreen(this, player, potionSeller,Floor1));
         }
     }
 }

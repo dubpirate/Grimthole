@@ -17,27 +17,30 @@ namespace Grimthole.Utils
         protected String name;
         protected Texture2D characterSheetTexture;
         protected Texture2D characterSilhouette;
-        Animation IdleBack;
-        Animation IdleLeft;
-        Animation IdleRight;
-        Animation RunLeft;
         Animation RunRight;
+        Animation RunLeft;
         Animation RunUp;
         Animation RunDown;
         List<Animation> animations = new List<Animation>();
 
         protected int health;
-		protected int speed;
-		protected int defense;
-		protected int magicResistance;
+        protected int speed;
+        protected int defense;
+        protected int magicResistance;
 
-		public String Name { get; protected set; }
+        public String Name { get; protected set; }
 
-		public Rectangle SpritePosition { get; set; }
+        public Rectangle SpritePosition { get; set; }
 
         public Animation currentAnimation { get; set; }
 
         public Animation IdleFront { get; set; }
+
+        public Animation IdleRight { get; set; }
+
+        public Animation IdleBack { get; set; }
+
+        public Animation IdleLeft { get; set; }
 
         // Default Constructor for entities.
         protected Entity(String name, Vector2 coords, int width, int height)
@@ -54,30 +57,42 @@ namespace Grimthole.Utils
             RunUp = new Animation();
             RunDown = new Animation();
             animations.Add(IdleFront);
+            animations.Add(IdleRight);
             animations.Add(IdleBack);
             animations.Add(IdleLeft);
-            animations.Add(IdleRight);
+            /*
+            
             animations.Add(RunLeft);
             animations.Add(RunRight);
             animations.Add(RunUp);
             animations.Add(RunDown);
+            */
             //top row
+            int column = 0;
             foreach (var animation in animations)
             {
-                animation.AddFrame(new Rectangle(0, 0, 256, 256), TimeSpan.FromSeconds(.07));
-                animation.AddFrame(new Rectangle(256, 0, 256, 256), TimeSpan.FromSeconds(.07));
-                animation.AddFrame(new Rectangle(512, 0, 256, 256), TimeSpan.FromSeconds(.07));
-                animation.AddFrame(new Rectangle(768, 0, 256, 256), TimeSpan.FromSeconds(.07));
-                //middle row
-                animation.AddFrame(new Rectangle(0, 256, 256, 256), TimeSpan.FromSeconds(.07));
-                animation.AddFrame(new Rectangle(256, 256, 256, 256), TimeSpan.FromSeconds(.07));
-                animation.AddFrame(new Rectangle(512, 256, 256, 256), TimeSpan.FromSeconds(.07));
-                animation.AddFrame(new Rectangle(768, 256, 256, 256), TimeSpan.FromSeconds(.07));
-                //bottom row
-                animation.AddFrame(new Rectangle(0, 512, 256, 256), TimeSpan.FromSeconds(.07));
-                animation.AddFrame(new Rectangle(256, 512, 256, 256), TimeSpan.FromSeconds(.07));
+                int i = 64;
+                int size = 64;
+                animation.AddFrame(new Rectangle(0, column, size, size), TimeSpan.FromSeconds(.07));
+                animation.AddFrame(new Rectangle(i, column, size, size), TimeSpan.FromSeconds(.07));
+                i += size;
+                animation.AddFrame(new Rectangle(i, column, size, size), TimeSpan.FromSeconds(.07));
+                i += size;
+                animation.AddFrame(new Rectangle(i, column, size, size), TimeSpan.FromSeconds(.07));
+                i += size;
+                animation.AddFrame(new Rectangle(i, column, size, size), TimeSpan.FromSeconds(.07));
+                i += size;
+                animation.AddFrame(new Rectangle(i, column, size, size), TimeSpan.FromSeconds(.07));
+                i += size;
+                animation.AddFrame(new Rectangle(i, column, size, size), TimeSpan.FromSeconds(.07));
+                i += size;
+                animation.AddFrame(new Rectangle(i, column, size, size), TimeSpan.FromSeconds(.07));
+                i += size;
+                animation.AddFrame(new Rectangle(i, column, size, size), TimeSpan.FromSeconds(.07));
+                i += size;
+                //animation.AddFrame(new Rectangle(i, column, size, size), TimeSpan.FromSeconds(.07));
+                column += size;
             }
-
             currentAnimation = IdleFront;
         }
         
@@ -97,6 +112,18 @@ namespace Grimthole.Utils
             spriteBatch.Draw(characterSilhouette, SpritePosition, Color.White);
             spriteBatch.Draw(characterSheetTexture, SpritePosition, sourceRectangle, Color.White);
             spriteBatch.End();
+        }
+
+
+
+        public Texture2D getCharacterSheetTexture()
+        {
+            return characterSheetTexture;
+        }
+
+        public Texture2D getCharacterSilhouette()
+        {
+            return characterSilhouette;
         }
     }
 }

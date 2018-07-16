@@ -57,5 +57,7 @@ namespace Grimthole.Screens
             spriteBatch.Draw(logo, logoPosition, Color.White);
             spriteBatch.End();
         }
+
+        public override void Save(){}
     }
 }

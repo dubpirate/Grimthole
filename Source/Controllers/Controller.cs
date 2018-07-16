@@ -9,7 +9,7 @@ namespace Grimthole.Controllers
 {
 	public abstract class Controller
     {
-        public abstract void Update(Entity entity, GameTime gt, List<Entity> npcs, List<Tile> map, List<Vector2> points, TextBubble textBubble);
+        public abstract void Update(Entity entity, GameTime gt, List<Entity> npcs, List<Tile> map, List<Vector2> points, TextBubble textBubble, GameScreen screen);
 
         public abstract void Draw(SpriteBatch spriteBatch, Camera camera);
     }

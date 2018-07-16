@@ -19,26 +19,80 @@ namespace Grimthole.Controllers
         Boolean doneTalking = true;
         double timer = 0;
 
-        public override void Update(Entity entity, GameTime gt, List<Entity> npcs, List<Tile> map, List<Vector2> points, TextBubble textBubble)
+        public override void Update(Entity entity, GameTime gt, List<Entity> npcs, List<Tile> map, List<Vector2> points, TextBubble textBubble, GameScreen screen)
         {
-            this.textBubble = textBubble;
-
-            if (timer > 0)
-            {
-                timer -= gt.ElapsedGameTime.TotalSeconds;
-            }
-            else
-            {
-                doneTalking = true;
-            }
-
             //checks if entity passed is player for movement checks
             if (entity.GetType() == typeof(Player))
             {
+                this.textBubble = textBubble;
+
+                if (timer > 0)
+                {
+                    timer -= gt.ElapsedGameTime.TotalSeconds;
+                }
+                else
+                {
+                    doneTalking = true;
+                }
                 UseControllerInput(entity, delta, npcs, map, points);
-                UseKeyboardInputs(entity, delta, npcs, map, points);
+                UseKeyboardInputs(entity, delta, npcs, map, points, gt, screen);
             }
-            
+            else
+            {
+                int delta = (int)(gt.ElapsedGameTime.TotalMilliseconds * 0.2);
+                if (((Villager)entity).npcTimer > 0)
+                {
+                    Console.WriteLine(((Villager)entity).Direction);
+                    ((Villager)entity).npcTimer -= gt.ElapsedGameTime.TotalSeconds;
+                    switch (((Villager)entity).Direction)
+                    {
+                        case Direction.Up:
+                            //if (CheckUpCollision(sprites[0].SpriteDimensions))
+                            // {
+                            MoveCommand.MoveUp(entity, delta);
+                            // }
+                            break;
+                        case Direction.Down:
+                            // if (CheckBottomCollision(sprites[0].SpriteDimensions))
+                            //{
+                            MoveCommand.MoveDown(entity, delta);
+                            //}
+                            break;
+                        case Direction.Left:
+                            //if (CheckLeftCollision(sprites[0].SpriteDimensions))
+                            //{
+                            MoveCommand.MoveLeft(entity, delta);
+                            //}
+                            break;
+                        case Direction.Right:
+                            // if (CheckRightCollision(sprites[0].SpriteDimensions))
+                            //{
+                            MoveCommand.MoveRight(entity, delta);
+                            // }
+                            break;
+
+                    }
+
+                }
+                else
+                {
+                    if (((Villager)entity).waitTime > 0)
+                    {
+                        ((Villager)entity).waitTime -= gt.ElapsedGameTime.TotalSeconds;
+                    }
+                    else
+                    {
+                        ((Villager)entity).npcTimer = 1;
+                        Random random = new Random();
+                        ((Villager)entity).Direction = (Direction)((Villager)entity).values.GetValue(random.Next(((Villager)entity).values.Length));
+                        Random rnd = new Random();
+                        double number = rnd.Next(0, 2);
+                        ((Villager)entity).waitTime = number;
+                    }
+                }
+            }
+
+
 
         }
 
@@ -63,7 +117,7 @@ namespace Grimthole.Controllers
                     }
                 }
             }
-            return 999999999;
+            return -1;
         }
 
         //checks if there is a collisions to entities left
@@ -220,30 +274,52 @@ namespace Grimthole.Controllers
             }
         }
 
-        void UseKeyboardInputs(Entity entity, int delta, List<Entity> npcs, List<Tile> map, List<Vector2> points)
+         Boolean UseKeyboardInputs(Entity entity, int delta, List<Entity> npcs, List<Tile> map, List<Vector2> points, GameTime gt, GameScreen screen)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.D) && CheckRightCollision(entity, npcs, map, points) && !talking)
             {
                 MoveCommand.MoveRight(entity, delta);
+                entity.currentAnimation = entity.IdleRight;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.A) && CheckLeftCollision(entity, npcs, map, points) && !talking)
             {
                 MoveCommand.MoveLeft(entity, delta);
+                entity.currentAnimation = entity.IdleLeft;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.W) && CheckUpCollision(entity, npcs, map, points) && !talking)
             {
                 MoveCommand.MoveUp(entity, delta);
+                entity.currentAnimation = entity.IdleBack;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.S) && CheckBottomCollision(entity, npcs, map, points) && !talking)
             {
                 MoveCommand.MoveDown(entity, delta);
+                entity.currentAnimation = entity.IdleFront;
+
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.J) && CheckSpriteCollision(entity, npcs, map) != 999999999)
+            if (Keyboard.GetState().IsKeyDown(Keys.J) && CheckSpriteCollision(entity, npcs, map) != -1)
             {
+                foreach(Entity npc in npcs)
+                    {
+                    int index = CheckSpriteCollision(entity, npcs, map);
+                    if (index == npcs.Count - 1)
+                    {
+                        if (screen.changeScreenTimer > 0)
+                        {
+                            screen.changeScreenTimer -= gt.ElapsedGameTime.TotalSeconds;
+                            return false;
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                        
+                    }
+                }
                 if (!talking && doneTalking)
                 {
                     doneTalking = false;
@@ -259,9 +335,8 @@ namespace Grimthole.Controllers
                     talking = false;
                     timer = 0.5;
                 }
-
-
             }
+            return false;
         }
     }
 }
