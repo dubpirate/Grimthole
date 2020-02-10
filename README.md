@@ -3,12 +3,13 @@ An fun little experiment into the world of C# Game Development from a few of Vic
 
 While it was fun to develope Grimthole, we have all gone our seperate ways. We've learnt a lot on this journey, and it has inspired a few of our members to pursue game development further.
 
-## Meat the Team
+## Meet the Team
  - Bradley <3 Peary, Artist
  - Rachel Gale, Writer
  - Curtis Blackman, Engineer
  - Devon Kennedy, Enginner
  - William Torkington, Engineer
+
 I would like to thank [this book on game architecture](http://gameprogrammingpatterns.com/contents.html).
 
 # Downloads:
